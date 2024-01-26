@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function NavNonAuth() {
   return (
-    <Flex as="nav" gap="8">
+    <Flex as="nav" gap="8" alignItems=" center">
       <Link to="/about">
         <Button size="lg" colorScheme="buttonGray" variant="link" fontSize="28">
           About us
