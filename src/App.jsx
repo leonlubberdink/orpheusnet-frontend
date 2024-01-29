@@ -24,6 +24,7 @@ function App() {
         <Route path="/app" element={<AppLayout />}>
           <Route index element={<Navigate replace to="feed" />} />
           <Route path="feed" element={<Feed />} />
+          <Route path="feed/:groupId" element={<Feed />} />
           <Route path="user" element={<UserSettings />} />
         </Route>
       </Route>

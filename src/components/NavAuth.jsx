@@ -18,8 +18,8 @@ function NavAuth({ user }) {
       <Text fontSize="28" fontWeight="400" color="brandGray.800">
         {user.userName}
       </Text>
-      <Link to="user" alignItems="center">
-        <Flex alignItems="center" justifyContent="center">
+      <Link to="user">
+        <Flex alignItems="center">
           <Icon color="brandGray.900" fontSize="45" as={HiCog8Tooth} />
         </Flex>
       </Link>

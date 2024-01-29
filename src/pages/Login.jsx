@@ -27,8 +27,8 @@ function Login() {
   const { login, isLoading } = useLogin();
   const { auth } = useAuth();
 
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('user1');
+  const [password, setPassword] = useState('Test1234');
 
   useEffect(
     function () {
