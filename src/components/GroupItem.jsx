@@ -1,6 +1,8 @@
 import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import { MdPeople } from 'react-icons/md';
 
+import { useGroupContext } from '../context/GroupContext';
+
 const baseUrl =
   import.meta.env.VITE_NODE_ENV === 'development'
     ? import.meta.env.VITE_ORPHEUS_API_URL_DEV
@@ -9,7 +11,14 @@ const baseUrl =
 const imgUrl = `${baseUrl}/group-img`;
 
 function GroupItem({ group }) {
-  const { groupName, groupImage, members, shares = [] } = group;
+  const { id, groupName, groupImage, members, shares = [] } = group;
+
+  const {
+    selectedGroupId,
+    setSelectedGroupId,
+    setSelectedMemberId,
+    setGroupAdmins,
+  } = useGroupContext();
 
   return (
     <Flex
@@ -21,6 +30,7 @@ function GroupItem({ group }) {
     >
       <Image
         mr="4"
+        ml="2"
         boxSize="12"
         src={`${imgUrl}/${groupImage}`}
         alt={`Group image of ${groupName}`}
