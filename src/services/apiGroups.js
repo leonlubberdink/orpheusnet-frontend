@@ -5,7 +5,6 @@ export async function getMyGroups(userId) {
     const groupData = await axioPrivate.get(`/users/${userId}/groups`, {
       headers: { 'Content-Type': 'application/json' },
     });
-
     const { data: groups } = groupData.data.data;
     return groups;
   } catch (err) {

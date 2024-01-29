@@ -8,7 +8,14 @@ function Header() {
   const invertValue = auth?.user ? '1' : '.1';
   return (
     <>
-      <Flex as="header" alignItems="center" color="brandGray.50" p="4">
+      <Flex
+        as="header"
+        alignItems="center"
+        color="brandGray.50"
+        p="4"
+        borderBottom={auth?.user ? '1px solid' : ''}
+        borderBottomColor="brandGray.200"
+      >
         <Box>
           <Image
             src="/public/img/logo-header.png"
