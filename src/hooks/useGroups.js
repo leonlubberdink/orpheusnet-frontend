@@ -2,14 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import { getMyGroups } from '../services/apiGroups';
 
 export function useGroups(userId) {
-  const { isLoading, data, refetch } = useQuery({
+  const { isLoading, data, isError, error } = useQuery({
     queryKey: ['groups', userId],
     queryFn: () => getMyGroups(userId),
-    enabled: userId !== undefined && userId !== '',
-    meta: {
-      errorMessage: 'Failed to get users groups',
-    },
+    enabled: !!userId,
   });
 
-  return { isLoading, data, refetch };
+  return { isLoading, isError, data, error };
 }

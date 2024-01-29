@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+import { setHeaderToken } from '../services/axios';
 import { login as loginApi } from '../services/apiAuth';
 import { useGroupContext } from '../context/GroupContext';
 import { useAuth } from './useAuth';
@@ -18,6 +19,7 @@ export function useLogin() {
       const { accessToken } = user.data;
       const { user: userData } = user.data.data;
       queryClient.setQueriesData(['user'], { ...userData });
+      setHeaderToken(accessToken);
       setAuth({ user: userData, accessToken });
       toast('Successfully logged in!');
 

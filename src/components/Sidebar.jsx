@@ -1,18 +1,16 @@
-import { useParams } from 'react-router-dom';
 import { VStack, Box, StackDivider, Text } from '@chakra-ui/react';
 import { useAuth } from '../hooks/useAuth';
 import { useGroups } from '../hooks/useGroups';
 
 function Sidebar({ type = 'groups' }) {
-  const { groupId } = useParams();
   const { auth } = useAuth();
-
   const { _id: userId } = auth.user;
-  const { data: groups, isLoading: isLoadingGroups } = useGroups(userId);
-
-  console.log(userId, groups);
-
+  const { isLoading: isLoadingGroups, data: groups } = useGroups(userId);
   const headerText = type === 'groups' ? 'Communities' : 'Members';
+
+  let sideBarItems = [];
+
+  if (type === 'groups') sideBarItems = groups || [];
 
   return (
     <VStack
@@ -22,14 +20,11 @@ function Sidebar({ type = 'groups' }) {
       <Text fontWeight="300" as="h3" fontSize="22">
         {headerText}
       </Text>
-      <Box>Stackbox</Box>
-      <Box>Stackbox</Box>
-      <Box>Stackbox</Box>
-      <Box>Stackbox</Box>
-      <Box>Stackbox</Box>
-      <Box>Stackbox</Box>
-      <Box>Stackbox</Box>
-      <Box>Stackbox</Box>
+      {type === 'groups' && isLoadingGroups && <div>Loading...</div>}
+      {type === 'groups' &&
+        sideBarItems.map((group) => (
+          <Box key={group._id}>{group.groupName}</Box>
+        ))}
     </VStack>
   );
 }

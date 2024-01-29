@@ -1,4 +1,5 @@
-import axios from './axios';
+import axios, { axioPrivate, setHeaderToken } from './axios';
+
 const SIGNUP_URL = '/users/signup';
 const LOGIN_URL = '/users/login';
 
@@ -39,15 +40,31 @@ export async function login(formData) {
   return loggedInUser;
 }
 
-export async function isLoggedIn() {
-  const res = await fetch(`${url}api/v1/users/isLoggedIn`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    credentials: 'include',
-  });
-  const { data } = await res.json();
+async function refreshToken() {
+  try {
+    const res = await axioPrivate.get('/users/refreshToken', {
+      withCredentials: true,
+    });
 
-  return data;
+    const { data } = res;
+
+    return data;
+  } catch (err) {
+    return err;
+  }
+}
+
+export async function refreshAuth(failedRequest) {
+  const data = await refreshToken();
+
+  if (data.status === 'success') {
+    failedRequest.response.config.headers.Authorization =
+      'Bearer ' + data.accessToken;
+    setHeaderToken(data.accessToken);
+    // you can set your token in storage too
+    // setToken({ token: data });
+    return Promise.resolve(data.accessToken);
+  } else {
+    throw new Error(data.message);
+  }
 }

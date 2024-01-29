@@ -1,15 +1,16 @@
-import { axiosPrivate } from '../hooks/useAxiosPrivate';
+import { axioPrivate } from './axios';
 
 export async function getMyGroups(userId) {
-  const groupData = await axiosPrivate.get(`/users/${userId}/groups`, {
-    headers: { 'Content-Type': 'application/json' },
-    withCredentials: true,
-  });
+  try {
+    const groupData = await axioPrivate.get(`/users/${userId}/groups`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
 
-  console.log(groups);
-
-  const groups = groupData.data.data;
-  return groups;
+    const { data: groups } = groupData.data.data;
+    return groups;
+  } catch (err) {
+    throw new Error(err.message);
+  }
 }
 
 // export async function getGroupShares(groupId) {
