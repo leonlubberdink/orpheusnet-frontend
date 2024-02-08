@@ -12,21 +12,18 @@ const imgUrl = `${baseUrl}/group-img`;
 
 function GroupItem({ group }) {
   const { id, groupName, groupImage, members, shares = [] } = group;
-
-  const {
-    selectedGroupId,
-    setSelectedGroupId,
-    setSelectedMemberId,
-    setGroupAdmins,
-  } = useGroupContext();
+  const { selectedGroupId } = useGroupContext();
 
   return (
     <Flex
       width="200px"
       align="center"
       justify="space-between"
-      fontWeight="300"
+      fontWeight={selectedGroupId === id ? '400' : '300'}
       fontSize="14"
+      letterSpacing={selectedGroupId === id ? 0.08 : 0.21}
+      mt="2"
+      mb="2"
     >
       <Image
         mr="4"

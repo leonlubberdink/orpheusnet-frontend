@@ -15,10 +15,13 @@ function UserItem({ user }) {
       justify="space-between"
       fontWeight="300"
       fontSize="14"
+      mt="2"
+      mb="2"
     >
       <Image
         borderRadius="full"
         mr="4"
+        ml="2"
         boxSize="12"
         src={`${imgUrl}/${user.userImage}`}
         alt={`Group image of ${user.userName}`}
