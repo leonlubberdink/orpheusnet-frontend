@@ -12,6 +12,9 @@ import {
 
 import { useSearchContext } from '../../context/SearchContext';
 
+import SharePanel from './SharePanel';
+import SearchPanel from './SearchPanel';
+
 const tabStyles = {
   background: 'brandOrange.00',
   color: 'brandOrange.400',
@@ -22,12 +25,6 @@ const tabStyles = {
 };
 
 function SearchShareComponent() {
-  const { searchValue, setSearchValue } = useSearchContext();
-
-  function handleInputChange(e) {
-    setSearchValue(e.target.value);
-  }
-
   return (
     <Flex flexGrow="1" pl="10" pr="10" mt="4">
       <Tabs
@@ -45,21 +42,8 @@ function SearchShareComponent() {
           </Tab>
         </TabList>
         <TabPanels>
-          <TabPanel>
-            <FormControl>
-              <Flex flexDir="row" alignItems="center" gap="4">
-                <Text>Search</Text>
-                <Input
-                  type="text"
-                  value={searchValue}
-                  onChange={handleInputChange}
-                />
-              </Flex>
-            </FormControl>
-          </TabPanel>
-          <TabPanel>
-            <p>Share</p>
-          </TabPanel>
+          <SearchPanel />
+          <SharePanel />
         </TabPanels>
       </Tabs>
     </Flex>
