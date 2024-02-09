@@ -1,7 +1,9 @@
+import { memo } from 'react';
 import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import { MdPeople } from 'react-icons/md';
 
 import { useGroupContext } from '../context/GroupContext';
+import { useEffect } from 'react';
 
 const baseUrl =
   import.meta.env.VITE_NODE_ENV === 'development'
@@ -35,21 +37,21 @@ function GroupItem({ group }) {
 
       <Flex flexDir="column" mr="auto">
         <Text>{groupName}</Text>
-        <Flex align="center">
+        <Flex flexDir="row" align="center">
           <Box mr="2">
             <Flex alignItems="center">{shares.length}</Flex>
           </Box>
           |
-          <Box ml="2">
-            <Flex align="center">
-              <MdPeople />
+          <Flex ml="2" align="center">
+            <Flex align="center" justify="center" gap="1">
+              <MdPeople fontSize="15" />
               {members.length}
             </Flex>
-          </Box>
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
   );
 }
 
-export default GroupItem;
+export default memo(GroupItem);

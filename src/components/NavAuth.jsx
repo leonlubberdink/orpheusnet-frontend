@@ -21,11 +21,10 @@ function NavAuth({ user }) {
         borderRadius="full"
         boxSize="12"
         src={`${imgUrl}/${user.userImage}`}
-        alt="Dan Abramov"
-        border="3px solid"
-        borderColor="brand.500"
+        alt="Your user image"
+        boxShadow="base"
       />
-      <Text fontSize="28" fontWeight="400" color="brand.500">
+      <Text fontSize="28" fontWeight="400" color="brandGray.800">
         {user.userName}
       </Text>
       <Link to="user">
@@ -37,7 +36,7 @@ function NavAuth({ user }) {
             width="45px"
             icon={<Icon fontSize="43" as={HiCog8Tooth} />}
             variant="unstyled"
-            color="brand.500"
+            color="brandGray.800"
             _hover={{ color: 'brand.600' }}
           />
         </Flex>

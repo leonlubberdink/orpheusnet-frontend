@@ -23,6 +23,7 @@ const colors = {
   },
   brandGray: {
     0: '#fff',
+    10: '#fdfdfd',
     50: '#f9f9f9',
     100: '#ebecec',
     200: '#c3c5c6',

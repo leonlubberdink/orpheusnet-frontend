@@ -1,4 +1,5 @@
-import { Box, Flex, Text, Image } from '@chakra-ui/react';
+import { memo } from 'react';
+import { Box, Flex, Text, Image, Tag } from '@chakra-ui/react';
 
 const baseUrl =
   import.meta.env.VITE_NODE_ENV === 'development'
@@ -7,7 +8,7 @@ const baseUrl =
 
 const imgUrl = `${baseUrl}/user-img`;
 
-function UserItem({ user }) {
+function UserItem({ user, groupAdmins }) {
   return (
     <Flex
       width="200px"
@@ -33,14 +34,18 @@ function UserItem({ user }) {
           <Box mr="2">
             <Flex alignItems="center">1</Flex>
           </Box>
-          |
-          <Box ml="2">
-            <Flex align="center">1</Flex>
-          </Box>
+          {groupAdmins.includes(user._id) && (
+            <Flex justify="center">
+              |
+              <Tag variant="outline" size="sm" colorScheme="brandOrange" ml="3">
+                admin
+              </Tag>
+            </Flex>
+          )}
         </Flex>
       </Flex>
     </Flex>
   );
 }
 
-export default UserItem;
+export default memo(UserItem);

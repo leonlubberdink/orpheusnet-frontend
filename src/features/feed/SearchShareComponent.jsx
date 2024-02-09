@@ -28,7 +28,7 @@ function SearchShareComponent() {
   }
 
   return (
-    <Flex w="100%" pl="10" pr="10">
+    <Flex w="100%" pl="10" pr="10" mt="4">
       <Tabs
         isFitted
         variant="enclosed-colored"
