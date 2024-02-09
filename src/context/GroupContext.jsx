@@ -4,7 +4,6 @@ const GroupContext = createContext();
 
 function GroupContextProvider({ children }) {
   const [selectedGroupId, setSelectedGroupId] = useState('');
-  const [selectedGroupName, setSelectedGroupName] = useState('');
   const [selectedMemberId, setSelectedMemberId] = useState('');
   const [groupAdmins, setGroupAdmins] = useState([]);
 

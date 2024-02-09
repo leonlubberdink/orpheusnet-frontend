@@ -1,4 +1,5 @@
-import { Box, Flex, Text, Image } from '@chakra-ui/react';
+import { Flex, Text, Image, Icon } from '@chakra-ui/react';
+import { HiShare } from 'react-icons/hi';
 import { MdPeople } from 'react-icons/md';
 
 import { useGroupContext } from '../context/GroupContext';
@@ -33,12 +34,13 @@ function GroupItem({ group }) {
         alt={`Group image of ${groupName}`}
       />
 
-      <Flex flexDir="column" mr="auto">
+      <Flex flexDir="column" mr="auto" gap="1">
         <Text>{groupName}</Text>
-        <Flex flexDir="row" align="center">
-          <Box mr="2">
-            <Flex alignItems="center">{shares.length}</Flex>
-          </Box>
+        <Flex flexDir="row" align="center" lineHeight="1">
+          <Flex mr="2" flexDir="row" align="center" gap="1">
+            <Icon boxSize="3" as={HiShare}></Icon>
+            <Text>{shares.length}</Text>
+          </Flex>
           |
           <Flex ml="2" align="center">
             <Flex align="center" justify="center" gap="1">
