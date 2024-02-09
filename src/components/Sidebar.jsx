@@ -107,7 +107,7 @@ function Sidebar({ type = 'groups' }) {
                 {type === 'groups' ? (
                   <ItemComponent group={item} />
                 ) : (
-                  <ItemComponent user={item} groupAdmins={group.groupAdmins} />
+                  <ItemComponent user={item} group={group} />
                 )}
               </Link>
             </Box>

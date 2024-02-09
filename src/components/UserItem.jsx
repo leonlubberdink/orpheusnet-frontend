@@ -1,5 +1,5 @@
-import { memo } from 'react';
 import { Box, Flex, Text, Image, Tag } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 const baseUrl =
   import.meta.env.VITE_NODE_ENV === 'development'
@@ -8,7 +8,22 @@ const baseUrl =
 
 const imgUrl = `${baseUrl}/user-img`;
 
-function UserItem({ user, groupAdmins }) {
+function UserItem({ user, group }) {
+  const { groupAdmins, shares } = group;
+  const [userShares, setUserShares] = useState([]);
+
+  useEffect(
+    function () {
+      const allGroupShares = shares || [];
+
+      const newUserShares = allGroupShares.filter(
+        (share) => share.user === user._id
+      );
+      setUserShares(newUserShares);
+    },
+    [shares, user._id]
+  );
+
   return (
     <Flex
       width="200px"
@@ -32,7 +47,7 @@ function UserItem({ user, groupAdmins }) {
         <Text>{user.userName}</Text>
         <Flex align="center">
           <Box mr="2">
-            <Flex alignItems="center">1</Flex>
+            <Flex alignItems="center">{userShares.length}</Flex>
           </Box>
           {groupAdmins.includes(user._id) && (
             <Flex justify="center">
@@ -48,4 +63,4 @@ function UserItem({ user, groupAdmins }) {
   );
 }
 
-export default memo(UserItem);
+export default UserItem;

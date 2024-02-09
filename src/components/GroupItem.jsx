@@ -1,9 +1,7 @@
-import { memo } from 'react';
 import { Box, Flex, Text, Image } from '@chakra-ui/react';
 import { MdPeople } from 'react-icons/md';
 
 import { useGroupContext } from '../context/GroupContext';
-import { useEffect } from 'react';
 
 const baseUrl =
   import.meta.env.VITE_NODE_ENV === 'development'
@@ -54,4 +52,4 @@ function GroupItem({ group }) {
   );
 }
 
-export default memo(GroupItem);
+export default GroupItem;
