@@ -20,8 +20,8 @@ function GroupItem({ group }) {
       width="200px"
       align="center"
       justify="space-between"
-      fontWeight={selectedGroupId === id ? '400' : '300'}
       fontSize="14"
+      fontWeight={selectedGroupId === id ? '400' : '300'}
       letterSpacing={selectedGroupId === id ? 0.08 : 0.21}
       mt="2"
       mb="2"

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import { Box, Flex, VStack, Text, Link, Spinner } from '@chakra-ui/react';
 
 import { useAuth } from '../hooks/useAuth';
@@ -31,6 +31,7 @@ function Sidebar({ type = 'groups' }) {
   } = useGroupContext();
   const { isLoading: isLoadingGroups, data: groups } = useGroups(userId);
   const { isLoading: isLoadingGroup, data: group } = useGroup(selectedGroupId);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const headerText = useMemo(() => {
     return type === 'groups' ? 'Communities' : 'Members';
@@ -49,7 +50,17 @@ function Sidebar({ type = 'groups' }) {
   }
 
   function handleSelectUser(id) {
-    selectedMemberId === id ? setSelectedMemberId('') : setSelectedMemberId(id);
+    if (selectedMemberId === id) {
+      setSelectedMemberId('');
+      searchParams.delete('user');
+      setSearchParams(searchParams);
+    }
+
+    if (selectedMemberId !== id) {
+      setSelectedMemberId(id);
+      searchParams.set('user', id);
+      setSearchParams(searchParams);
+    }
   }
 
   const ItemComponent = type === 'groups' ? GroupItem : UserItem;
@@ -93,7 +104,7 @@ function Sidebar({ type = 'groups' }) {
               fontWeight="500"
             >
               <Link
-                as={NavLink}
+                as={type === 'groups' ? NavLink : undefined}
                 variant="unstyled"
                 _last={{ marginBottom: 2 }}
                 _hover={{ textDecoration: 'none' }}

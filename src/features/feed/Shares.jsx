@@ -1,5 +1,6 @@
-import { Spinner, VStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Spinner, VStack } from '@chakra-ui/react';
 
 import { useShares } from '../../hooks/useShares';
 
@@ -13,11 +14,12 @@ function Shares() {
   const { searchValue } = useSearchContext();
   const { isLoading, isError, data, error } = useShares(selectedGroupId);
   const [filteredShares, setFilteredShares] = useState([]);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const groupShares = data || [];
+    let newFilteredShares = data || [];
 
-    const newFilteredShares = groupShares.filter((share) =>
+    newFilteredShares = newFilteredShares.filter((share) =>
       [
         share.publisher,
         share.title,
@@ -28,8 +30,15 @@ function Shares() {
       ].some((field) => field.toLowerCase().includes(searchValue.toLowerCase()))
     );
 
+    if (searchParams.size > 0) {
+      const filterUserId = searchParams.get('user');
+      newFilteredShares = newFilteredShares.filter(
+        (share) => share.user._id === filterUserId
+      );
+    }
+
     setFilteredShares(newFilteredShares);
-  }, [data, searchValue]);
+  }, [data, searchValue, searchParams]);
 
   return (
     <VStack ml="10" mr="10">
