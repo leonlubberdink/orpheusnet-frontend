@@ -15,7 +15,6 @@ function shortenSoundCloudTilte(title) {
 }
 
 function ShareItem({ share }) {
-  console.log(share);
   const { shareUrl, publisher, title, platform, format, user } = share;
 
   const shortTitle =

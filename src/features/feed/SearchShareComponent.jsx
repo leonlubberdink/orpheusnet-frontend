@@ -9,7 +9,8 @@ import {
   FormControl,
   Text,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+
+import { useSearchContext } from '../../context/SearchContext';
 
 const tabStyles = {
   background: 'brandOrange.00',
@@ -21,14 +22,14 @@ const tabStyles = {
 };
 
 function SearchShareComponent() {
-  const [searchValue, setSearchValue] = useState('');
+  const { searchValue, setSearchValue } = useSearchContext();
 
   function handleInputChange(e) {
     setSearchValue(e.target.value);
   }
 
   return (
-    <Flex w="100%" pl="10" pr="10" mt="4">
+    <Flex flexGrow="1" pl="10" pr="10" mt="4">
       <Tabs
         isFitted
         variant="enclosed-colored"
@@ -47,7 +48,7 @@ function SearchShareComponent() {
           <TabPanel>
             <FormControl>
               <Flex flexDir="row" alignItems="center" gap="4">
-                <Text>Search in : </Text>
+                <Text>Search</Text>
                 <Input
                   type="text"
                   value={searchValue}
