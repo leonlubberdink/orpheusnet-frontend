@@ -7,7 +7,7 @@ import {
   TabPanels,
   TabPanel,
   FormControl,
-  FormLabel,
+  Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -46,11 +46,14 @@ function SearchShareComponent() {
         <TabPanels>
           <TabPanel>
             <FormControl>
-              <Input
-                type="text"
-                value={searchValue}
-                onChange={handleInputChange}
-              />
+              <Flex flexDir="row" alignItems="center" gap="4">
+                <Text>Search in : </Text>
+                <Input
+                  type="text"
+                  value={searchValue}
+                  onChange={handleInputChange}
+                />
+              </Flex>
             </FormControl>
           </TabPanel>
           <TabPanel>

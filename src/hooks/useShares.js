@@ -4,7 +4,7 @@ import { getGroupShares } from '../services/apiShares';
 
 export function useShares(groupId) {
   const { isLoading, data, isError, error } = useQuery({
-    queryKey: ['groups', groupId],
+    queryKey: ['shares', groupId],
     queryFn: () => getGroupShares(groupId),
     enabled: !!groupId,
   });
