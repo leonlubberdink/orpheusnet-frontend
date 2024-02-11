@@ -11,3 +11,24 @@ export async function getGroupShares(groupId) {
     throw new Error(err.message);
   }
 }
+
+export async function shareMusicToGroup(shareData) {
+  const { selectedGroupId, formData } = shareData;
+
+  console.log(formData);
+
+  try {
+    const shareResponse = await axioPrivate.post(
+      `/groups/${selectedGroupId}/shares`,
+      JSON.stringify(formData),
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      }
+    );
+
+    return shareResponse.data.data.data;
+  } catch (err) {
+    throw err.response.data;
+  }
+}

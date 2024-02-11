@@ -19,8 +19,6 @@ function Shares() {
   useEffect(() => {
     let newFilteredShares = data || [];
 
-    console.log(newFilteredShares);
-
     newFilteredShares = newFilteredShares.filter((share) =>
       [
         share.publisher,
@@ -44,25 +42,15 @@ function Shares() {
           (share) => share.user._id === filterUserId
         );
 
-      if (filterAlbums)
-        newFilteredShares = newFilteredShares.filter(
-          (share) => share.format.toLowerCase() === 'album'
-        );
-
-      if (filterEps)
-        newFilteredShares = newFilteredShares.filter(
-          (share) => share.format.toLowerCase() === 'ep'
-        );
-
-      if (filterSongs)
-        newFilteredShares = newFilteredShares.filter(
-          (share) => share.format.toLowerCase() === 'song'
-        );
-
-      if (filterMixes)
-        newFilteredShares = newFilteredShares.filter(
-          (share) => share.format.toLowerCase() === 'mix'
-        );
+      if (filterAlbums || filterEps || filterSongs || filterMixes)
+        newFilteredShares = newFilteredShares.filter((share) => {
+          if (filterAlbums && share.format.toLowerCase() === 'album')
+            return true;
+          if (filterEps && share.format.toLowerCase() === 'ep') return true;
+          if (filterSongs && share.format.toLowerCase() === 'song') return true;
+          if (filterMixes && share.format.toLowerCase() === 'mix') return true;
+          return false;
+        });
     }
 
     setFilteredShares(newFilteredShares);

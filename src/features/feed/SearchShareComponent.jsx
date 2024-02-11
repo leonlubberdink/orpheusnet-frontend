@@ -1,19 +1,8 @@
-import {
-  Flex,
-  Input,
-  TabList,
-  Tab,
-  Tabs,
-  TabPanels,
-  TabPanel,
-  FormControl,
-  Text,
-} from '@chakra-ui/react';
+import { Flex, TabList, Tab, Tabs, TabPanels } from '@chakra-ui/react';
 
 import { useSearchContext } from '../../context/SearchContext';
 
-import SharePanel from './SharePanel';
-import SearchPanel from './SearchPanel';
+import SearchSharePanel from './SearchSharePanel';
 
 const tabStyles = {
   background: 'brandOrange.00',
@@ -25,6 +14,13 @@ const tabStyles = {
 };
 
 function SearchShareComponent() {
+  const { setSearchValue, setShareUrl } = useSearchContext();
+
+  function handleSwitch() {
+    setSearchValue('');
+    setShareUrl('');
+  }
+
   return (
     <Flex flexGrow="1" pl="10" pr="10" mt="4">
       <Tabs
@@ -34,16 +30,16 @@ function SearchShareComponent() {
         colorScheme="brandTabOrange"
       >
         <TabList>
-          <Tab bg="brandGray.50" _selected={tabStyles}>
+          <Tab bg="brandGray.50" _selected={tabStyles} onClick={handleSwitch}>
             Search / Filter
           </Tab>
-          <Tab bg="brandGray.50" _selected={tabStyles}>
+          <Tab bg="brandGray.50" _selected={tabStyles} onClick={handleSwitch}>
             Share
           </Tab>
         </TabList>
         <TabPanels>
-          <SearchPanel />
-          <SharePanel />
+          <SearchSharePanel panelType="search" />
+          <SearchSharePanel panelType="share" />
         </TabPanels>
       </Tabs>
     </Flex>

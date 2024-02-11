@@ -61,8 +61,6 @@ export async function refreshAuth(failedRequest) {
     failedRequest.response.config.headers.Authorization =
       'Bearer ' + data.accessToken;
     setHeaderToken(data.accessToken);
-    // you can set your token in storage too
-    // setToken({ token: data });
     return Promise.resolve(data.accessToken);
   } else {
     throw new Error(data.message);
