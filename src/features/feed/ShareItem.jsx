@@ -1,5 +1,8 @@
-import { ExternalLinkIcon } from '@chakra-ui/icons';
+import { ExternalLinkIcon, DeleteIcon } from '@chakra-ui/icons';
 import { Box, Flex, Text, Image, Link } from '@chakra-ui/react';
+
+import { useAuth } from '../../hooks/useAuth';
+import { useDeleteShare } from '../../hooks/useDeleteShare';
 
 const baseUrl =
   import.meta.env.VITE_NODE_ENV === 'development'
@@ -15,31 +18,72 @@ function shortenSoundCloudTilte(title) {
 }
 
 function ShareItem({ share }) {
-  const { shareUrl, publisher, title, platform, format, user } = share;
+  const {
+    shareUrl,
+    publisher,
+    title,
+    platform,
+    format,
+    user,
+    _id: shareId,
+  } = share;
+  const { deleteShare, isLoading } = useDeleteShare();
+  const {
+    auth: {
+      user: { _id: loggedInUserId },
+    },
+  } = useAuth();
 
   const shortTitle =
     platform === 'SoundCloud' ? shortenSoundCloudTilte(title) : title;
 
+  function handleDeleteShare() {
+    console.log('DELETE SHARE');
+    deleteShare(shareId);
+  }
+
   return (
     <Box
-      key={share._id}
+      key={shareId}
       borderWidth="1px"
       minWidth="100%"
       bg="brandGray.0"
       boxShadow="sm"
       pl="4"
       pr="4"
-      pt="1"
-      pb="1"
     >
-      <Flex flexDir="row" alignItems="center" gap="4" minHeight="20">
+      <Flex flexDir="row" alignItems="center" gap="3" minHeight="20">
         <Flex minWidth="16" justifyContent="center">
           {format.toUpperCase()}
         </Flex>
-        <Flex flexDir="column" gap="2">
-          <Text as="h2" fontSize="20" fontWeight="400" color="brand.600">
-            {publisher} - {shortTitle}
-          </Text>
+        <Flex
+          flexDir="column"
+          gap="2"
+          borderLeft="1px solid"
+          borderLeftColor="brandGray.200"
+          borderRight="1px solid"
+          borderRightColor="brandGray.200"
+          pl="6"
+          flexGrow="1"
+        >
+          <Link
+            href={`${shareUrl}?autoplay=false`}
+            target="blank"
+            _hover={{ textDecoration: 'none', color: 'brandOrange.600' }}
+          >
+            <Flex flexDir="row" alignItems="center" textDecor="none">
+              <Text
+                as="h2"
+                fontSize="20"
+                fontWeight="400"
+                color="brand.600"
+                _hover={{ color: 'brandOrange.600' }}
+              >
+                {publisher} - {shortTitle}
+                <ExternalLinkIcon boxSize="4" ml="2" mb="1px" />
+              </Text>
+            </Flex>
+          </Link>
           <Flex flexDir="row" alignItems="center">
             <Text fontSize="12" fontWeight="400" color="brandGray.500">
               Shared by: {user.userName}
@@ -54,9 +98,19 @@ function ShareItem({ share }) {
             />
           </Flex>
         </Flex>
-        <Link ml="auto" href={`${shareUrl}?autoplay=false`} target="blank">
-          <ExternalLinkIcon boxSize="10" color="brandOrange.400" />
-        </Link>
+        {loggedInUserId === user._id && (
+          <DeleteIcon
+            boxSize="6"
+            color="brandGray.500"
+            ml="4"
+            mr="3"
+            _hover={{ color: 'brandOrange.600' }}
+            onClick={handleDeleteShare}
+          />
+        )}
+        {loggedInUserId !== user._id && (
+          <DeleteIcon boxSize="6" color="brandGray.200" ml="4" mr="3" />
+        )}
       </Flex>
     </Box>
   );

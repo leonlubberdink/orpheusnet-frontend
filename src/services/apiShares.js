@@ -32,3 +32,15 @@ export async function shareMusicToGroup(shareData) {
     throw err.response.data;
   }
 }
+
+export async function deleteShare(shareId) {
+  try {
+    const res = await axioPrivate.delete(`/shares/${shareId}`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    console.log(res);
+    return res;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
