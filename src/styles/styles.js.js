@@ -1,5 +1,6 @@
 const colors = {
   brand: {
+    50: '#e8f3f6',
     100: '#e8f3f6',
     200: '#badae3',
     300: '#8cc2d0',

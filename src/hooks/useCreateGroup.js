@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createGroup as createGroupApi } from '../../services/apiGroups';
+import { createGroup as createGroupApi } from '../services/apiGroups';
 
 export function useCreateGroup() {
   const queryClient = useQueryClient();
@@ -10,7 +10,7 @@ export function useCreateGroup() {
     },
     onSuccess: (response, formData) => {
       queryClient.invalidateQueries(['groups', formData.userId]);
-      queryClient.invalidateQueries('groups'); // Invalidates any other queries related to groups
+      queryClient.invalidateQueries('groups');
       console.log(response);
       // Display toast later
     },

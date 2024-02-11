@@ -1,6 +1,15 @@
 import { useMemo } from 'react';
 import { NavLink, useSearchParams } from 'react-router-dom';
-import { Box, Flex, VStack, Text, Link, Spinner } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  VStack,
+  Text,
+  Link,
+  Spinner,
+  useDisclosure,
+} from '@chakra-ui/react';
 
 import { useAuth } from '../hooks/useAuth';
 import { useGroups } from '../hooks/useGroups';
@@ -10,6 +19,8 @@ import { useGroupContext } from '../context/GroupContext';
 
 import GroupItem from './GroupItem';
 import UserItem from './UserItem';
+import CreateGroupModal from './CreateGroupModal';
+import InviteUserModal from './InviteUserModal';
 
 const scrollBarStyle = {
   '&::-webkit-scrollbar': { width: '4px' },
@@ -32,6 +43,7 @@ function Sidebar({ type = 'groups' }) {
   const { isLoading: isLoadingGroups, data: groups } = useGroups(userId);
   const { isLoading: isLoadingGroup, data: group } = useGroup(selectedGroupId);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { onOpen, isOpen, onClose } = useDisclosure();
 
   const headerText = useMemo(() => {
     return type === 'groups' ? 'Communities' : 'Members';
@@ -73,63 +85,85 @@ function Sidebar({ type = 'groups' }) {
   const sidebarStyle = isLoading ? {} : scrollBarStyle;
 
   return (
-    <VStack color="black" gap="0" width="200px">
-      <Box borderBottom="solid 2px" w="100%" borderBottomColor="brandGray.200">
-        <Text fontWeight="400" as="h3" fontSize="22" align="center">
-          {headerText}
-        </Text>
-      </Box>
-      <VStack
-        gap="0"
-        maxHeight="80vh"
-        overflowY={isLoading ? 'none' : 'auto'}
-        sx={sidebarStyle}
-      >
-        {isLoading && (
-          <Flex>
-            <Spinner size="lg" color="brandOrange.500" mt="2" mb="2" />
-          </Flex>
-        )}
-        {!isLoading &&
-          sideBarItems.map((item) => (
-            <Box
-              key={item._id}
-              bg={
-                type === 'groups'
-                  ? selectedGroupId === item._id
+    <>
+      <VStack color="black" gap="0" width="200px">
+        <Box
+          borderBottom="solid 2px"
+          w="100%"
+          borderBottomColor="brandGray.200"
+        >
+          <Text fontWeight="400" as="h3" fontSize="22" align="center">
+            {headerText}
+          </Text>
+        </Box>
+        <VStack
+          gap="0"
+          maxHeight="80vh"
+          overflowY={isLoading ? 'none' : 'auto'}
+          sx={sidebarStyle}
+        >
+          {isLoading && (
+            <Flex>
+              <Spinner size="lg" color="brandOrange.500" mt="2" mb="2" />
+            </Flex>
+          )}
+          {!isLoading &&
+            sideBarItems.map((item) => (
+              <Box
+                key={item._id}
+                bg={
+                  type === 'groups'
+                    ? selectedGroupId === item._id
+                      ? 'brandGray.100'
+                      : 'brandGray.0'
+                    : selectedMemberId === item._id
                     ? 'brandGray.100'
                     : 'brandGray.0'
-                  : selectedMemberId === item._id
-                  ? 'brandGray.100'
-                  : 'brandGray.0'
-              }
-              borderBottom="solid 1px"
-              w="100%"
-              borderBottomColor="brandGray.200"
-              fontWeight="500"
-            >
-              <Link
-                as={type === 'groups' ? NavLink : undefined}
-                variant="unstyled"
-                _last={{ marginBottom: 2 }}
-                _hover={{ textDecoration: 'none' }}
-                onClick={() =>
-                  type === 'groups'
-                    ? handleSelectGroup(item._id)
-                    : handleSelectUser(item._id)
                 }
-                to={type === 'groups' ? `/app/feed/${item._id}` : undefined}
+                borderBottom="solid 1px"
+                w="100%"
+                borderBottomColor="brandGray.200"
+                fontWeight="500"
               >
-                {type === 'groups' ? (
-                  <ItemComponent group={item} />
-                ) : (
-                  <ItemComponent user={item} group={group} />
-                )}
-              </Link>
-            </Box>
-          ))}
+                <Link
+                  as={type === 'groups' ? NavLink : undefined}
+                  variant="unstyled"
+                  _last={{ marginBottom: 2 }}
+                  _hover={{ textDecoration: 'none' }}
+                  onClick={() =>
+                    type === 'groups'
+                      ? handleSelectGroup(item._id)
+                      : handleSelectUser(item._id)
+                  }
+                  to={type === 'groups' ? `/app/feed/${item._id}` : undefined}
+                >
+                  {type === 'groups' ? (
+                    <ItemComponent group={item} />
+                  ) : (
+                    <ItemComponent user={item} group={group} />
+                  )}
+                </Link>
+              </Box>
+            ))}
+
+          <Button
+            width="180px"
+            size="xs"
+            colorScheme="buttonOrange"
+            mt="4"
+            onClick={onOpen}
+          >
+            {type === 'groups' ? 'Create community' : 'Invite user'}
+          </Button>
+        </VStack>
       </VStack>
-    </VStack>
+      {type === 'groups' && (
+        <CreateGroupModal isOpen={isOpen} onClose={onClose} />
+      )}
+      {type === 'users' && (
+        <InviteUserModal isOpen={isOpen} onClose={onClose} />
+      )}
+    </>
   );
 }
 

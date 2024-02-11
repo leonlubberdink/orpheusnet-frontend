@@ -7,8 +7,6 @@ const LOGOUT_URL = '/users/logout';
 export async function signup(formData) {
   const { userName, email, password, passwordConfirm, userImage } = formData;
 
-  console.log(formData);
-
   const formDataObj = new FormData();
   formDataObj.append('userName', userName);
   formDataObj.append('email', email);
