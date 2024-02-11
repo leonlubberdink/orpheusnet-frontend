@@ -5,20 +5,24 @@ const LOGIN_URL = '/users/login';
 const LOGOUT_URL = '/users/logout';
 
 export async function signup(formData) {
-  const { userName, email, password, passwordConfirm } = formData;
-  const signedUpUser = await axios.post(
-    SIGNUP_URL,
-    JSON.stringify({
-      userName,
-      email,
-      password,
-      passwordConfirm,
-    }),
-    {
-      headers: { 'Content-Type': 'application/json' },
-      withCredentials: true,
-    }
-  );
+  const { userName, email, password, passwordConfirm, userImage } = formData;
+
+  console.log(formData);
+
+  const formDataObj = new FormData();
+  formDataObj.append('userName', userName);
+  formDataObj.append('email', email);
+  formDataObj.append('password', password);
+  formDataObj.append('passwordConfirm', passwordConfirm);
+
+  if (userImage) {
+    formDataObj.append('userImage', userImage, userImage.name);
+  }
+
+  const signedUpUser = await axios.post(SIGNUP_URL, formDataObj, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    withCredentials: true,
+  });
 
   return signedUpUser.data;
 }

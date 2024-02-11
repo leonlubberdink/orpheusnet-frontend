@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { MdOutlineUploadFile } from 'react-icons/md';
 import {
   Box,
   Button,
   Center,
+  Icon,
+  Flex,
   Image,
   Heading,
   VStack,
@@ -21,14 +24,20 @@ import { useSignup } from '../hooks/useSignup';
 import { useAuth } from '../hooks/useAuth';
 
 function Signup() {
+  const navigate = useNavigate();
+
   const userRef = useRef();
+  const fileInputRef = useRef(null);
+
   const { auth } = useAuth();
   const { signup, isLoading } = useSignup();
-  const navigate = useNavigate();
+
   const [userName, setUserName] = useState('user8');
   const [email, setEmail] = useState('user8@mail.com');
   const [password, setPassword] = useState('Test1234');
   const [passwordConfirm, setPasswordConfirm] = useState('Test1234');
+  const [imageName, setImageName] = useState('');
+  const [userImage, setUserImage] = useState(undefined);
 
   useEffect(
     function () {
@@ -43,16 +52,24 @@ function Signup() {
     e.preventDefault();
     if (!userName || !email || !password || !passwordConfirm) return;
     signup(
-      { userName, email, password, passwordConfirm },
+      { userName, email, password, passwordConfirm, userImage },
       {
         onSettled: () => {
           setUserName('');
           setEmail('');
           setPassword('');
           setPasswordConfirm('');
+          setImageName('');
+          setUserImage(undefined);
         },
       }
     );
+  }
+
+  function handleFileChange(e) {
+    const file = e.target.files[0];
+    setImageName(file.name);
+    setUserImage(file);
   }
 
   return (
@@ -88,10 +105,15 @@ function Signup() {
             </Heading>
           </VStack>
 
-          <Card bg="brandGray.50" borderColor="brand.700" minW="24rem">
+          <Card
+            bg="brandGray.50"
+            borderColor="brand.700"
+            minW="24rem"
+            maxW="24rem"
+          >
             <CardBody padding="8">
               <form onSubmit={handleSignup}>
-                <Stack spacing="8">
+                <Stack spacing="5">
                   <FormControl>
                     <FormLabel
                       size="sm"
@@ -99,6 +121,7 @@ function Signup() {
                       fontSize="1rem"
                       fontWeight="300"
                       bg="brandGray.50"
+                      mb="1"
                     >
                       Username
                     </FormLabel>
@@ -123,6 +146,7 @@ function Signup() {
                       fontSize="1rem"
                       fontWeight="300"
                       bg="brandGray.50"
+                      mb="1"
                     >
                       E-mail address
                     </FormLabel>
@@ -146,6 +170,7 @@ function Signup() {
                       fontSize="1rem"
                       fontWeight="300"
                       bg="brandGray.50"
+                      mb="1"
                     >
                       Password
                     </FormLabel>
@@ -169,6 +194,7 @@ function Signup() {
                       fontSize="1rem"
                       fontWeight="300"
                       bg="brandGray.50"
+                      mb="1"
                     >
                       Confirm password
                     </FormLabel>
@@ -184,6 +210,39 @@ function Signup() {
                       required
                     />
                   </FormControl>
+
+                  <FormControl>
+                    <FormLabel
+                      size="sm"
+                      color="black"
+                      fontSize="1rem"
+                      fontWeight="300"
+                      bg="brandGray.50"
+                      mb="1"
+                    >
+                      User image (optional)
+                    </FormLabel>
+                    <Input
+                      style={{ display: 'none' }}
+                      type="file"
+                      onChange={handleFileChange}
+                      ref={fileInputRef}
+                    />
+                    <Flex flexDir="row" gap="2" alignItems="center">
+                      <Button
+                        size="sm"
+                        leftIcon={<Icon as={MdOutlineUploadFile} />}
+                        colorScheme="brandGray"
+                        onClick={() => fileInputRef.current.click()}
+                      >
+                        Upload Image
+                      </Button>
+                      <Text color="brandGray.500" fontSize="12">
+                        ...{imageName?.slice(-25)}
+                      </Text>
+                    </Flex>
+                  </FormControl>
+
                   <Button
                     isLoading={isLoading}
                     loadingText="Signing you up..."
