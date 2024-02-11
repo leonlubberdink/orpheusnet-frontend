@@ -25,10 +25,10 @@ function Signup() {
   const { auth } = useAuth();
   const { signup, isLoading } = useSignup();
   const navigate = useNavigate();
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [userName, setUserName] = useState('user8');
+  const [email, setEmail] = useState('user8@mail.com');
+  const [password, setPassword] = useState('Test1234');
+  const [passwordConfirm, setPasswordConfirm] = useState('Test1234');
 
   useEffect(
     function () {
