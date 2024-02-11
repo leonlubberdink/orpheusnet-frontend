@@ -60,7 +60,8 @@ function Shares() {
 
   return (
     <VStack ml="10" mr="10">
-      {isLoading && <Spinner size="" color="brandOrange.500" />}
+      {isLoading && <Spinner size="xl" color="brandOrange.500" />}
+      {isLoading && 'LOADING......'}
       {filteredShares.map((share) => (
         <ShareItem share={share} key={share._id} />
       ))}
