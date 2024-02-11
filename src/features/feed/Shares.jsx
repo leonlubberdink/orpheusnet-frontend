@@ -12,7 +12,7 @@ import ShareItem from './ShareItem';
 function Shares() {
   const { selectedGroupId } = useGroupContext();
   const { searchValue } = useSearchContext();
-  const { isLoading, isError, data, error } = useShares(selectedGroupId);
+  const { isLoading, data } = useShares(selectedGroupId);
   const [filteredShares, setFilteredShares] = useState([]);
   const [searchParams] = useSearchParams();
 
@@ -52,6 +52,8 @@ function Shares() {
           return false;
         });
     }
+
+    newFilteredShares.reverse();
 
     setFilteredShares(newFilteredShares);
   }, [data, searchValue, searchParams]);

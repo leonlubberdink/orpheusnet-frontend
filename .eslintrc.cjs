@@ -13,10 +13,7 @@ module.exports = {
   plugins: ['react-refresh', '@tanstack/query'],
   rules: {
     'react/prop-types': 0,
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'react-refresh/only-export-components': 'off',
     '@tanstack/query/exhaustive-deps': 'error',
     '@tanstack/query/no-rest-destructuring': 'warn',
     '@tanstack/query/stable-query-client': 'error',
