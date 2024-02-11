@@ -42,7 +42,12 @@ function Sidebar({ type = 'groups' }) {
   }, [type, isLoadingGroups, isLoadingGroup]);
 
   const sideBarItems = useMemo(() => {
-    return type === 'groups' ? groups || [] : group?.members || [];
+    // Ensure the groups or group?.members is always treated as an array
+    if (type === 'groups') {
+      return Array.isArray(groups) ? groups : [];
+    } else {
+      return Array.isArray(group?.members) ? group.members : [];
+    }
   }, [type, groups, group?.members]);
 
   function handleSelectGroup(id) {

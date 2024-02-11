@@ -2,6 +2,7 @@ import axios, { axioPrivate, setHeaderToken } from './axios';
 
 const SIGNUP_URL = '/users/signup';
 const LOGIN_URL = '/users/login';
+const LOGOUT_URL = '/users/logout';
 
 export async function signup(formData) {
   const { userName, email, password, passwordConfirm } = formData;
@@ -38,6 +39,15 @@ export async function login(formData) {
   );
 
   return loggedInUser;
+}
+
+export async function logout() {
+  const logoutRes = await axios.get(LOGOUT_URL, {
+    headers: { 'Content-Type': 'application/json' },
+    withCredentials: true,
+  });
+
+  return logoutRes;
 }
 
 async function refreshToken() {

@@ -16,7 +16,6 @@ export function useDeleteShare() {
       toast(`Music successfully deleted share!`);
     },
     onError: (err) => {
-      console.log(err);
       if (err.code === 'ERR_NETWORK') toast(err.message);
     },
   });

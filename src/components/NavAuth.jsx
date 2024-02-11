@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Flex, Image, Icon, Text, IconButton } from '@chakra-ui/react';
 import { HiCog8Tooth } from 'react-icons/hi2';
 import { TbLogout } from 'react-icons/tb';
+import { useSignout } from '../hooks/useSignout';
 
 const baseUrl =
   import.meta.env.VITE_NODE_ENV === 'development'
@@ -11,8 +12,10 @@ const baseUrl =
 const imgUrl = `${baseUrl}/user-img`;
 
 function NavAuth({ user }) {
+  const { signout } = useSignout();
+
   function handleLogout() {
-    console.log('handleLogout');
+    signout();
   }
 
   return (
@@ -50,6 +53,7 @@ function NavAuth({ user }) {
         variant="unstyled"
         color="brandOrange.500"
         _hover={{ color: 'brandOrange.600' }}
+        onClick={handleLogout}
       />
     </Flex>
   );

@@ -30,7 +30,6 @@ export function useShareMusic(resetStatesCallback) {
       resetStatesCallback();
     },
     onError: (err) => {
-      console.log(err);
       if (err.code === 'ERR_NETWORK') toast(err.message);
 
       if (err.error.name === 'ValidationError') {

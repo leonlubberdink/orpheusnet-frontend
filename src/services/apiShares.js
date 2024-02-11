@@ -15,8 +15,6 @@ export async function getGroupShares(groupId) {
 export async function shareMusicToGroup(shareData) {
   const { selectedGroupId, formData } = shareData;
 
-  console.log(formData);
-
   try {
     const shareResponse = await axioPrivate.post(
       `/groups/${selectedGroupId}/shares`,
@@ -38,7 +36,6 @@ export async function deleteShare(shareId) {
     const res = await axioPrivate.delete(`/shares/${shareId}`, {
       headers: { 'Content-Type': 'application/json' },
     });
-    console.log(res);
     return res;
   } catch (err) {
     throw new Error(err.message);

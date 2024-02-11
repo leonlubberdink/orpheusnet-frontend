@@ -13,17 +13,14 @@ export function useSignup() {
   const { mutate: signup, isLoading } = useMutation({
     mutationFn: (formData) => signupApi(formData),
     onSuccess: (user) => {
-      console.log(user);
       const { accessToken } = user;
       const { user: userData } = user.data;
       queryClient.setQueriesData(['user'], { ...userData });
       setAuth({ user: userData, accessToken });
-      console.log('SUCESS');
       toast('Your account was successfully created!');
       navigate(`/app/feed/`);
     },
     onError: (err) => {
-      console.log(err);
       if (err.code === 'ERR_NETWORK') toast(err.message);
       toast(err.response.data.message);
     },
