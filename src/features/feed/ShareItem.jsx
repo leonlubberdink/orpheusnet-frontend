@@ -38,7 +38,6 @@ function ShareItem({ share }) {
     platform === 'SoundCloud' ? shortenSoundCloudTilte(title) : title;
 
   function handleDeleteShare() {
-    console.log('DELETE SHARE');
     deleteShare(shareId);
   }
 
@@ -101,11 +100,11 @@ function ShareItem({ share }) {
         {loggedInUserId === user._id && (
           <DeleteIcon
             boxSize="6"
-            color="brandGray.500"
+            color={isLoading ? 'brandGray.200' : 'brandGray.500'}
             ml="4"
             mr="3"
-            _hover={{ color: 'brandOrange.600' }}
-            onClick={handleDeleteShare}
+            _hover={isLoading ? {} : { color: 'brandOrange.600' }}
+            onClick={isLoading ? undefined : handleDeleteShare}
           />
         )}
         {loggedInUserId !== user._id && (

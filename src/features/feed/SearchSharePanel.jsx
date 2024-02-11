@@ -17,7 +17,7 @@ import { useGroupContext } from '../../context/GroupContext';
 function SearchPanel({ panelType }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { selectedGroupId } = useGroupContext();
-  const { shareMusic, isSuccess } = useShareMusic();
+  const { shareMusic } = useShareMusic(resetStates);
 
   const [albumChecked, setAlbumChecked] = useState(false);
   const [epChecked, setEpChecked] = useState(false);
@@ -43,7 +43,6 @@ function SearchPanel({ panelType }) {
 
   function handleSetShareType(type) {
     setShareType((prev) => {
-      console.log('cur: ' + prev);
       if (prev === '') return type;
       return '';
     });
@@ -101,6 +100,15 @@ function SearchPanel({ panelType }) {
     type === 'mix' && setMixChecked((prev) => !prev);
   }
 
+  function resetStates() {
+    setShareUrl('');
+    setShareType('');
+    setAlbumChecked(false);
+    setEpChecked(false);
+    setSongChecked(false);
+    setMixChecked(false);
+  }
+
   function handleShareNow() {
     shareMusic({
       selectedGroupId,
@@ -110,31 +118,6 @@ function SearchPanel({ panelType }) {
       },
     });
   }
-
-  useEffect(
-    function () {
-      if (isSuccess) {
-        console.log('SUCCESS');
-        setShareUrl('');
-        setShareType('');
-        setAlbumChecked(false);
-        setEpChecked(false);
-        setSongChecked(false);
-        setMixChecked(false);
-      }
-      console.log(shareType);
-    },
-    [
-      shareType,
-      isSuccess,
-      setShareUrl,
-      setShareType,
-      setAlbumChecked,
-      setEpChecked,
-      setSongChecked,
-      setMixChecked,
-    ]
-  );
 
   return (
     <TabPanel>

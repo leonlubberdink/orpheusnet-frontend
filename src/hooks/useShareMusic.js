@@ -3,13 +3,14 @@ import toast from 'react-hot-toast';
 
 import { shareMusicToGroup } from '../services/apiShares';
 
-export function useShareMusic() {
+export function useShareMusic(resetStatesCallback) {
   const queryClient = useQueryClient();
 
   const {
     mutate: shareMusic,
     isLoading,
     isSuccess,
+    status,
   } = useMutation({
     mutationFn: (shareData) => {
       return shareMusicToGroup(shareData);
@@ -26,6 +27,7 @@ export function useShareMusic() {
       toast(
         `Successfully shared "${newShare.publisher} - ${newShare.title}" to group!`
       );
+      resetStatesCallback();
     },
     onError: (err) => {
       console.log(err);
@@ -41,5 +43,5 @@ export function useShareMusic() {
     },
   });
 
-  return { shareMusic, isLoading, isSuccess };
+  return { shareMusic, isLoading, isSuccess, status };
 }
