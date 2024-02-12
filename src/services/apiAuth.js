@@ -18,7 +18,6 @@ export async function signup(formData) {
   }
 
   const signedUpUser = await axios.post(SIGNUP_URL, formDataObj, {
-    headers: { 'Content-Type': 'multipart/form-data' },
     withCredentials: true,
   });
 
@@ -55,6 +54,7 @@ export async function logout() {
 async function refreshToken() {
   try {
     const res = await axioPrivate.get('/users/refreshToken', {
+      headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     });
 
