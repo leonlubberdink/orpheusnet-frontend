@@ -1,17 +1,20 @@
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Spinner, VStack } from '@chakra-ui/react';
+import { Spinner, VStack, Text } from '@chakra-ui/react';
 
 import { useShares } from '../../hooks/useShares';
 import { useGroupContext } from '../../context/GroupContext';
 import { useSearchContext } from '../../context/SearchContext';
 import ShareItem from './ShareItem';
+import EmptyFeed from '../../components/EmptyFeed';
 
 function Shares() {
   const { selectedGroupId } = useGroupContext();
   const { searchValue } = useSearchContext();
   const { isLoading, data } = useShares(selectedGroupId);
   const [searchParams] = useSearchParams();
+
+  console.log(!selectedGroupId);
 
   const filteredShares = useMemo(() => {
     if (!Array.isArray(data)) return [];
@@ -50,16 +53,20 @@ function Shares() {
 
   return (
     <VStack ml="10" mr="10">
+      {isLoading && <Spinner size="xl" color="brandOrange.500" />}
+      {!selectedGroupId && <EmptyFeed></EmptyFeed>}
+      {selectedGroupId &&
+        filteredShares.map((share) => (
+          <ShareItem share={share} key={share._id} />
+        ))}
+      {/* 
       {isLoading ? (
-        <>
-          <Spinner size="xl" color="brandOrange.500" />
-          <div>LOADING......</div>
-        </>
+        <Spinner size="xl" color="brandOrange.500" />
       ) : (
         filteredShares.map((share) => (
           <ShareItem share={share} key={share._id} />
         ))
-      )}
+      )} */}
     </VStack>
   );
 }

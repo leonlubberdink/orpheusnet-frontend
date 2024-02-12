@@ -45,6 +45,7 @@ function CreateGroupModal({ isOpen, onClose }) {
       { groupName, groupImage },
       {
         onSettled: () => {
+          setGroupName('');
           setGroupImageName('');
           setGroupImage(undefined);
           onClose();
@@ -109,6 +110,7 @@ function CreateGroupModal({ isOpen, onClose }) {
                   leftIcon={<Icon as={MdOutlineUploadFile} />}
                   colorScheme="brandGray"
                   onClick={() => fileInputRef.current.click()}
+                  disabled={isLoading}
                 >
                   Choose Image
                 </Button>
@@ -128,6 +130,7 @@ function CreateGroupModal({ isOpen, onClose }) {
             size="sm"
             colorScheme="buttonOrange"
             onClick={handleCreateGroup}
+            isDisabled={isLoading}
           >
             Create Community
           </Button>

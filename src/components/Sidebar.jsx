@@ -14,7 +14,6 @@ import {
 import { useAuth } from '../hooks/useAuth';
 import { useGroups } from '../hooks/useGroups';
 import { useGroup } from '../hooks/useGroup';
-
 import { useGroupContext } from '../context/GroupContext';
 
 import GroupItem from './GroupItem';
@@ -145,17 +144,17 @@ function Sidebar({ type = 'groups' }) {
                 </Link>
               </Box>
             ))}
-
-          <Button
-            width="180px"
-            size="xs"
-            colorScheme="buttonOrange"
-            mt="4"
-            onClick={onOpen}
-          >
-            {type === 'groups' ? 'Create community' : 'Invite user'}
-          </Button>
         </VStack>
+        <Button
+          width="180px"
+          size="xs"
+          colorScheme="buttonOrange"
+          mt="4"
+          onClick={onOpen}
+          isDisabled={type === 'users' && !selectedGroupId}
+        >
+          {type === 'groups' ? 'Create community' : 'Invite user'}
+        </Button>
       </VStack>
       {type === 'groups' && (
         <CreateGroupModal isOpen={isOpen} onClose={onClose} />
