@@ -38,6 +38,7 @@ function Sidebar({ type = 'groups' }) {
     setSelectedGroupId,
     selectedMemberId,
     setSelectedMemberId,
+    groupAdmins,
   } = useGroupContext();
   const { isLoading: isLoadingGroups, data: groups } = useGroups(userId);
   const { isLoading: isLoadingGroup, data: group } = useGroup(selectedGroupId);
@@ -82,6 +83,8 @@ function Sidebar({ type = 'groups' }) {
   const ItemComponent = type === 'groups' ? GroupItem : UserItem;
 
   const sidebarStyle = isLoading ? {} : scrollBarStyle;
+
+  console.log(groupAdmins.includes(userId));
 
   return (
     <>
@@ -151,7 +154,10 @@ function Sidebar({ type = 'groups' }) {
           colorScheme="buttonOrange"
           mt="4"
           onClick={onOpen}
-          isDisabled={type === 'users' && !selectedGroupId}
+          isDisabled={
+            type === 'users' &&
+            (!groupAdmins.includes(userId) || !selectedGroupId)
+          }
         >
           {type === 'groups' ? 'Create community' : 'Invite user'}
         </Button>

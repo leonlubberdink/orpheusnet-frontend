@@ -14,8 +14,6 @@ function Shares() {
   const { isLoading, data } = useShares(selectedGroupId);
   const [searchParams] = useSearchParams();
 
-  console.log(!selectedGroupId);
-
   const filteredShares = useMemo(() => {
     if (!Array.isArray(data)) return [];
 
@@ -59,14 +57,6 @@ function Shares() {
         filteredShares.map((share) => (
           <ShareItem share={share} key={share._id} />
         ))}
-      {/* 
-      {isLoading ? (
-        <Spinner size="xl" color="brandOrange.500" />
-      ) : (
-        filteredShares.map((share) => (
-          <ShareItem share={share} key={share._id} />
-        ))
-      )} */}
     </VStack>
   );
 }
