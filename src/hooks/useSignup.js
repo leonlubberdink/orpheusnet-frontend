@@ -17,8 +17,10 @@ export function useSignup() {
       const { user: userData } = user.data;
       queryClient.setQueriesData(['user'], { ...userData });
       setAuth({ user: userData, accessToken });
-      toast('Your account was successfully created!');
-      navigate(`/app/feed/`);
+      toast(
+        'Your account was successfully created! Please confirm your account.'
+      );
+      navigate(`/confirm`);
     },
     onError: (err) => {
       if (err.code === 'ERR_NETWORK') toast(err.message);

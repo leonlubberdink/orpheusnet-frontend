@@ -16,18 +16,23 @@ export function useLogin() {
   const { mutate: login, status } = useMutation({
     mutationFn: (formData) => loginApi(formData),
     onSuccess: (user) => {
+      queryClient.invalidateQueries();
       const { accessToken } = user.data;
       const { user: userData } = user.data.data;
-      queryClient.setQueriesData(['user'], { ...userData });
+
       setHeaderToken(accessToken);
       setAuth({ user: userData, accessToken });
-      toast('Successfully logged in!');
 
-      if (userData?.groups[0]) {
+      if (userData?.emailVerified && userData?.groups[0]) {
         setSelectedGroupId(userData.groups[0]);
-        navigate(`/app/feed/${userData.groups[0]}`);
+        navigate(`/app/feed/${userData.groups[0]}`, { replace: true });
+        toast('Successfully logged in!');
+      } else if (userData?.emailVerified) {
+        navigate(`/app/feed`, { replace: true });
+        toast('Successfully logged in!');
       } else {
-        navigate(`/app/feed`);
+        navigate(`/confirm`);
+        toast('Please verify your account!');
       }
     },
     onError: (err) => {

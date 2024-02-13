@@ -84,8 +84,6 @@ function Sidebar({ type = 'groups' }) {
 
   const sidebarStyle = isLoading ? {} : scrollBarStyle;
 
-  console.log(groupAdmins.includes(userId));
-
   return (
     <>
       <VStack color="black" gap="0" width="200px">

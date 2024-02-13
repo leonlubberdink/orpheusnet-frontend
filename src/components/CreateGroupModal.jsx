@@ -110,7 +110,7 @@ function CreateGroupModal({ isOpen, onClose }) {
                   leftIcon={<Icon as={MdOutlineUploadFile} />}
                   colorScheme="brandGray"
                   onClick={() => fileInputRef.current.click()}
-                  disabled={isLoading}
+                  isDsabled={isLoading}
                 >
                   Choose Image
                 </Button>

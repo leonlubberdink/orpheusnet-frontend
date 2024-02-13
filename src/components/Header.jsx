@@ -5,7 +5,8 @@ import { useAuth } from '../hooks/useAuth';
 
 function Header() {
   const { auth } = useAuth();
-  const invertValue = auth?.user ? '1' : '.1';
+  const invertValue = auth?.user && auth?.user?.emailVerified ? '1' : '.1';
+
   return (
     <>
       <Flex
@@ -13,7 +14,9 @@ function Header() {
         alignItems="center"
         color="brandGray.50"
         p="4"
-        borderBottom={auth?.user ? '1px solid' : ''}
+        borderBottom={
+          auth?.user && auth?.user?.emailVerified ? '1px solid' : ''
+        }
         borderBottomColor="brandGray.200"
       >
         <Box>
@@ -27,7 +30,7 @@ function Header() {
         <Spacer />
         <Navigation />
       </Flex>
-      {auth?.user && <Divider mb="4" />}
+      {auth?.user && auth?.user?.emailVerified && <Divider mb="4" />}
     </>
   );
 }

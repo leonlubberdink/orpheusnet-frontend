@@ -9,6 +9,7 @@ import PageNotFound from './pages/PageNotFound';
 import Feed from './features/feed/Feed';
 import UserSettings from './features/user/UserSettings';
 import RequireAuth from './components/RequireAuth';
+import Confirm from './pages/Confirm';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
 
       {/* Protected Routes */}
       <Route element={<RequireAuth />}>
+        <Route path="confirm" element={<Confirm />} />
         <Route path="/app" element={<AppLayout />}>
           <Route index element={<Navigate replace to="feed" />} />
           <Route path="feed" element={<Feed />} />

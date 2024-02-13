@@ -4,7 +4,11 @@ import NavAuth from '../components/NavAuth';
 
 function Navigation() {
   const { auth } = useAuth();
-  return auth?.user ? <NavAuth user={auth.user} /> : <NavNonAuth />;
+  return auth?.user && auth?.user?.emailVerified ? (
+    <NavAuth user={auth.user} />
+  ) : (
+    <NavNonAuth />
+  );
 }
 
 export default Navigation;

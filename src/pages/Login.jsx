@@ -32,7 +32,8 @@ function Login() {
 
   useEffect(
     function () {
-      if (auth.user) return navigate('/app/feed', { replace: true });
+      if (auth.user && auth.user?.emailVerified)
+        return navigate('/app/feed', { replace: true });
       userRef.current.focus();
     },
     [auth, navigate]
