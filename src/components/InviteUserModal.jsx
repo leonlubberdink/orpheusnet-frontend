@@ -34,7 +34,15 @@ function InviteUserModal({ isOpen, onClose }) {
   );
 
   function handleSendInvite() {
-    inviteMember({ selectedGroupId, userOrMail });
+    inviteMember(
+      { selectedGroupId, userOrMail },
+      {
+        onSettled: () => {
+          setUserOrMail('');
+          onClose();
+        },
+      }
+    );
   }
 
   return (
