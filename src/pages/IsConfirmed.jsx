@@ -1,19 +1,27 @@
 import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Box, Center, Image, Heading, VStack, Stack } from '@chakra-ui/react';
+import { Link as ReactRouterLink, useNavigate } from 'react-router-dom';
+import {
+  Box,
+  Center,
+  Image,
+  Heading,
+  VStack,
+  Stack,
+  Button,
+  Link as ChakraLink,
+} from '@chakra-ui/react';
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 
 import { useAuth } from '../hooks/useAuth';
 
-function Confirm() {
+function IsConfirmed() {
   const navigate = useNavigate();
 
   const { auth } = useAuth();
 
-  console.log(auth);
-
   useEffect(
     function () {
-      auth?.user?.emailVerified && navigate('/app/feed/');
+      auth?.user?.emailVerified && navigate('/');
     },
     [auth, navigate]
   );
@@ -33,23 +41,32 @@ function Confirm() {
       <Center>
         <Stack alignItems="center" spacing="8">
           <VStack as="header" spacing="6" mt="16">
-            <Link to={auth?.user?.emailVerified ? '/' : undefined}>
+            <ReactRouterLink to="/login">
               <Image
                 src="/public/img/logo-header.png"
                 alt="Orpheusnet Logo"
                 height="70px"
                 style={{ filter: 'invert(.9)' }}
               />
-            </Link>
+            </ReactRouterLink>
             <Heading
               as="h1"
               fontWeight="300"
               fontSize="24px"
               color="brandGray.50"
             >
-              To complete your account setup, please click on the verification
-              link we&lsquo;ve just emailed to you.
+              Your account has been successfully confirmed. You can now log in
+              to begin sharing music!
             </Heading>
+            <ChakraLink as={ReactRouterLink} to="/login">
+              <Button
+                size="lg"
+                colorScheme="buttonOrange"
+                rightIcon={<ArrowForwardIcon />}
+              >
+                To login
+              </Button>
+            </ChakraLink>
           </VStack>
         </Stack>
       </Center>
@@ -57,4 +74,4 @@ function Confirm() {
   );
 }
 
-export default Confirm;
+export default IsConfirmed;

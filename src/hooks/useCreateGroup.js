@@ -12,11 +12,11 @@ export function useCreateGroup() {
       queryClient.invalidateQueries(['groups', formData.userId]);
       queryClient.invalidateQueries('groups');
 
-      // Display toast later
+      toast('Group created!');
     },
     onError: (err) => {
       console.log(err.message);
-      // Display toast later
+      toast(err.message);
     },
   });
 

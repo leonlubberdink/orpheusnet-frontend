@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Spinner, VStack, Text } from '@chakra-ui/react';
+import { Spinner, VStack } from '@chakra-ui/react';
 
 import { useShares } from '../../hooks/useShares';
 import { useGroupContext } from '../../context/GroupContext';
