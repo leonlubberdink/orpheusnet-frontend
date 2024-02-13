@@ -9,8 +9,6 @@ function Confirm() {
 
   const { auth } = useAuth();
 
-  console.log(auth);
-
   useEffect(
     function () {
       auth?.user?.emailVerified && navigate('/app/feed/');

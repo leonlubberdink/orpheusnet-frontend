@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { MdOutlineUploadFile } from 'react-icons/md';
 import {
   Box,
@@ -25,7 +25,7 @@ import { useAuth } from '../hooks/useAuth';
 
 function Signup() {
   const navigate = useNavigate();
-
+  const { groupId = '' } = useParams(); // Destructure groupId from useParams
   const userRef = useRef();
   const fileInputRef = useRef(null);
 
@@ -38,6 +38,7 @@ function Signup() {
   const [passwordConfirm, setPasswordConfirm] = useState('Test1234');
   const [imageName, setImageName] = useState('');
   const [userImage, setUserImage] = useState(undefined);
+  const [groupToSignupFor, setGroupToSignupFor] = useState('');
 
   useEffect(
     function () {
@@ -48,11 +49,22 @@ function Signup() {
     [auth, navigate]
   );
 
+  useEffect(() => {
+    setGroupToSignupFor(groupId);
+  }, [groupId]);
+
   function handleSignup(e) {
     e.preventDefault();
     if (!userName || !email || !password || !passwordConfirm) return;
     signup(
-      { userName, email, password, passwordConfirm, userImage },
+      {
+        userName,
+        email,
+        password,
+        passwordConfirm,
+        userImage,
+        groupToSignupFor,
+      },
       {
         onSettled: () => {
           setUserName('');

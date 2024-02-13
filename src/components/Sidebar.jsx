@@ -39,6 +39,7 @@ function Sidebar({ type = 'groups' }) {
     selectedMemberId,
     setSelectedMemberId,
     groupAdmins,
+    setSelectedGroupName,
   } = useGroupContext();
   const { isLoading: isLoadingGroups, data: groups } = useGroups(userId);
   const { isLoading: isLoadingGroup, data: group } = useGroup(selectedGroupId);
@@ -63,6 +64,7 @@ function Sidebar({ type = 'groups' }) {
   }, [type, groups, group?.members]);
 
   function handleSelectGroup(id) {
+    setSelectedGroupName(group?.groupName);
     selectedGroupId === id ? setSelectedGroupId('') : setSelectedGroupId(id);
   }
 

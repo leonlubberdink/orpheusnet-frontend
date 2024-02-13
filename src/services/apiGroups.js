@@ -27,6 +27,7 @@ export async function getMyGroups(userId) {
       headers: { 'Content-Type': 'application/json' },
     });
     const { data: groups } = myGroupsData.data.data;
+
     return groups;
   } catch (err) {
     throw new Error(err.message);
@@ -41,6 +42,22 @@ export async function getGroup(groupId) {
 
     const { doc: group } = groupData.data.data;
     return group;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
+export async function inviteMember({ selectedGroupId, userOrMail }) {
+  const body = { user: userOrMail };
+  try {
+    const response = await axioPrivate.post(
+      `/groups/inviteMember/${selectedGroupId}`,
+      body,
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
+    return response.status;
   } catch (err) {
     throw new Error(err.message);
   }

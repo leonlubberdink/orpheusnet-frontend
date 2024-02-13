@@ -1,9 +1,10 @@
 import { Box, Flex } from '@chakra-ui/react';
 
+import { SearchContextProvider } from '../../context/SearchContext';
+
 import Sidebar from '../../components/Sidebar';
 import SearchShareComponent from './SearchShareComponent';
 import Shares from './Shares';
-import { SearchContextProvider } from '../../context/SearchContext';
 
 function Feed() {
   return (

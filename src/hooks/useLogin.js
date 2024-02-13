@@ -8,7 +8,7 @@ import { useGroupContext } from '../context/GroupContext';
 import { useAuth } from './useAuth';
 
 export function useLogin() {
-  const { setSelectedGroupId } = useGroupContext();
+  const { setSelectedGroupId, setSelectedGroupName } = useGroupContext();
   const { setAuth } = useAuth();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -25,6 +25,7 @@ export function useLogin() {
 
       if (userData?.emailVerified && userData?.groups[0]) {
         setSelectedGroupId(userData.groups[0]);
+        setSelectedGroupName(userData.groups[0].groupName);
         navigate(`/app/feed/${userData.groups[0]}`, { replace: true });
         toast('Successfully logged in!');
       } else if (userData?.emailVerified) {

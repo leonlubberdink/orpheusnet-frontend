@@ -5,13 +5,23 @@ const LOGIN_URL = '/users/login';
 const LOGOUT_URL = '/users/logout';
 
 export async function signup(formData) {
-  const { userName, email, password, passwordConfirm, userImage } = formData;
+  const {
+    userName,
+    email,
+    password,
+    passwordConfirm,
+    userImage,
+    groupToSignupFor,
+  } = formData;
 
   const formDataObj = new FormData();
   formDataObj.append('userName', userName);
   formDataObj.append('email', email);
   formDataObj.append('password', password);
   formDataObj.append('passwordConfirm', passwordConfirm);
+
+  if (groupToSignupFor !== '')
+    formDataObj.append('groupToSignupFor', groupToSignupFor);
 
   if (userImage) {
     formDataObj.append('userImage', userImage, userImage.name);
