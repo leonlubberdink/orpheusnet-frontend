@@ -17,5 +17,7 @@ export function useInvite() {
     },
   });
 
-  return { inviteMember, status };
+  const isLoading = status === 'pending';
+
+  return { inviteMember, isLoading };
 }

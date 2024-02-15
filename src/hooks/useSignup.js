@@ -10,7 +10,7 @@ export function useSignup() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  const { mutate: signup, isLoading } = useMutation({
+  const { mutate: signup, status } = useMutation({
     mutationFn: (formData) => signupApi(formData),
     onSuccess: (user) => {
       const { accessToken } = user;
@@ -27,6 +27,8 @@ export function useSignup() {
       toast(err.response.data.message);
     },
   });
+
+  const isLoading = status === 'pending';
 
   return { signup, isLoading };
 }

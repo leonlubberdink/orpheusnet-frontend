@@ -17,7 +17,7 @@ import { useGroupContext } from '../../context/GroupContext';
 function SearchPanel({ panelType }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const { selectedGroupId } = useGroupContext();
-  const { shareMusic } = useShareMusic(resetStates);
+  const { shareMusic, isLoading } = useShareMusic(resetStates);
 
   const [albumChecked, setAlbumChecked] = useState(false);
   const [epChecked, setEpChecked] = useState(false);
@@ -181,6 +181,7 @@ function SearchPanel({ panelType }) {
                 colorScheme="buttonOrange"
                 ml="auto"
                 onClick={handleShareNow}
+                isDisabled={isLoading}
               >
                 Share now
               </Button>

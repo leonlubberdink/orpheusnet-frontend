@@ -31,7 +31,7 @@ function Confirm() {
       <Center>
         <Stack alignItems="center" spacing="8">
           <VStack as="header" spacing="6" mt="16">
-            <Link to={auth?.user?.emailVerified ? '/' : undefined}>
+            <Link to={auth?.user?.emailVerified ? '/app/feed' : '/'}>
               <Image
                 src="/public/img/logo-header.png"
                 alt="Orpheusnet Logo"

@@ -6,7 +6,7 @@ import { deleteShare as deleteShareApi } from '../services/apiShares';
 export function useDeleteShare() {
   const queryClient = useQueryClient();
 
-  const { mutate: deleteShare, isLoading } = useMutation({
+  const { mutate: deleteShare, status } = useMutation({
     mutationFn: (shareId) => {
       return deleteShareApi(shareId);
     },
@@ -19,6 +19,8 @@ export function useDeleteShare() {
       if (err.code === 'ERR_NETWORK') toast(err.message);
     },
   });
+
+  const isLoading = status === 'pending';
 
   return { deleteShare, isLoading };
 }

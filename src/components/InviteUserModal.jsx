@@ -20,7 +20,7 @@ import { useGroup } from '../hooks/useGroup';
 import { useInvite } from '../hooks/useInvite';
 
 function InviteUserModal({ isOpen, onClose }) {
-  const { inviteMember } = useInvite();
+  const { inviteMember, isLoading } = useInvite();
   const [userOrMail, setUserOrMail] = useState('');
   const { selectedGroupName, selectedGroupId, setSelectedGroupName } =
     useGroupContext();
@@ -100,6 +100,7 @@ function InviteUserModal({ isOpen, onClose }) {
             size="sm"
             colorScheme="buttonOrange"
             onClick={handleSendInvite}
+            isDisabled={isLoading}
           >
             Send invite
           </Button>

@@ -6,12 +6,7 @@ import { shareMusicToGroup } from '../services/apiShares';
 export function useShareMusic(resetStatesCallback) {
   const queryClient = useQueryClient();
 
-  const {
-    mutate: shareMusic,
-    isLoading,
-    isSuccess,
-    status,
-  } = useMutation({
+  const { mutate: shareMusic, status } = useMutation({
     mutationFn: (shareData) => {
       return shareMusicToGroup(shareData);
     },
@@ -41,6 +36,9 @@ export function useShareMusic(resetStatesCallback) {
         toast(err.message);
     },
   });
+
+  const isLoading = status === 'pending';
+  const isSuccess = status === 'success';
 
   return { shareMusic, isLoading, isSuccess, status };
 }

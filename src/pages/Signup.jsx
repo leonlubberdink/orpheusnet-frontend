@@ -42,7 +42,8 @@ function Signup() {
 
   useEffect(
     function () {
-      if (auth.user) return navigate('/app/feed', { replace: true });
+      if (auth?.user?.emailVerified)
+        return navigate('/app/feed', { replace: true });
 
       userRef.current.focus();
     },
@@ -52,6 +53,10 @@ function Signup() {
   useEffect(() => {
     setGroupToSignupFor(groupId);
   }, [groupId]);
+
+  useEffect(() => {
+    isLoading && console.log('LOADING');
+  }, [isLoading]);
 
   function handleSignup(e) {
     e.preventDefault();
@@ -257,7 +262,8 @@ function Signup() {
 
                   <Button
                     isLoading={isLoading}
-                    loadingText="Signing you up..."
+                    // isLoading={isLoading}
+                    loadingText="Submitting"
                     colorScheme="brand"
                     size="sm"
                     type="submit"

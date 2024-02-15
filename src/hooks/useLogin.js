@@ -42,5 +42,7 @@ export function useLogin() {
     },
   });
 
-  return { login, status };
+  const isLoading = status === 'pending';
+
+  return { login, isLoading };
 }

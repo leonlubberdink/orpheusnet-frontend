@@ -6,7 +6,7 @@ import { createGroup as createGroupApi } from '../services/apiGroups';
 export function useCreateGroup() {
   const queryClient = useQueryClient();
 
-  const { mutate: createGroup, isLoading } = useMutation({
+  const { mutate: createGroup, status } = useMutation({
     mutationFn: (formData) => createGroupApi(formData),
     onSuccess: (response, formData) => {
       queryClient.invalidateQueries(['groups', formData.userId]);
@@ -18,6 +18,8 @@ export function useCreateGroup() {
       toast(err.message);
     },
   });
+
+  const isLoading = status === 'pending';
 
   return { createGroup, isLoading };
 }
