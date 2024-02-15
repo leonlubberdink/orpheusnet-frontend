@@ -34,6 +34,8 @@ function ShareItem({ share }) {
     },
   } = useAuth();
 
+  const type = format === 'track' ? 'song' : format;
+
   const shortTitle =
     platform === 'SoundCloud' ? shortenSoundCloudTilte(title) : title;
 
@@ -53,7 +55,7 @@ function ShareItem({ share }) {
     >
       <Flex flexDir="row" alignItems="center" gap="3" minHeight="20">
         <Flex minWidth="16" justifyContent="center">
-          {format.toUpperCase()}
+          {type.toUpperCase()}
         </Flex>
         <Flex
           flexDir="column"

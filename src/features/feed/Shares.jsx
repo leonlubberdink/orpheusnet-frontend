@@ -17,7 +17,7 @@ function Shares() {
   const filteredShares = useMemo(() => {
     if (!Array.isArray(data)) return [];
 
-    const searchFilters = ['album', 'ep', 'song', 'mix'];
+    const searchFilters = ['album', 'ep', 'track', 'mix'];
     const filterUserId = searchParams.get('user');
     const activeFilters = searchFilters.reduce((acc, filter) => {
       const value = searchParams.get(filter);

@@ -66,7 +66,7 @@ function SearchPanel({ panelType }) {
         setMixChecked(false);
       }
 
-      if (type === 'song') {
+      if (type === 'track') {
         handleSetShareType(type);
         setSongChecked((checkedStatus) => !checkedStatus);
         setEpChecked(false);
@@ -96,7 +96,7 @@ function SearchPanel({ panelType }) {
 
     type === 'album' && setAlbumChecked((prev) => !prev);
     type === 'ep' && setEpChecked((prev) => !prev);
-    type === 'song' && setSongChecked((prev) => !prev);
+    type === 'track' && setSongChecked((prev) => !prev);
     type === 'mix' && setMixChecked((prev) => !prev);
   }
 
@@ -163,7 +163,7 @@ function SearchPanel({ panelType }) {
               isChecked={songChecked}
               size="md"
               colorScheme="brandOrange"
-              onChange={(e) => handleCheckBoxes(e, 'song')}
+              onChange={(e) => handleCheckBoxes(e, 'track')}
             >
               Song
             </Checkbox>
