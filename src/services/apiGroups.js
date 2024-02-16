@@ -59,6 +59,6 @@ export async function inviteMember({ selectedGroupId, userOrMail }) {
     );
     return response.status;
   } catch (err) {
-    throw new Error(err.message);
+    throw new Error(err.response.data.error.message);
   }
 }
