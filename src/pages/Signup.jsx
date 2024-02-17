@@ -54,10 +54,6 @@ function Signup() {
     setGroupToSignupFor(groupId);
   }, [groupId]);
 
-  useEffect(() => {
-    isLoading && console.log('LOADING');
-  }, [isLoading]);
-
   function handleSignup(e) {
     e.preventDefault();
     if (!userName || !email || !password || !passwordConfirm) return;

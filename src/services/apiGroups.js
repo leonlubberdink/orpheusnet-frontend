@@ -62,3 +62,27 @@ export async function inviteMember({ selectedGroupId, userOrMail }) {
     throw new Error(err.response.data.error.message);
   }
 }
+
+export async function getInvites(userId) {
+  try {
+    const res = await axioPrivate.get(`/users/invites/${userId}`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    return res.data.receivedInvites;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
+export async function respondToInvite({ hasAcceptedInvite, userId, groupId }) {
+  const body = { hasAcceptedInvite, userId, groupId };
+  try {
+    const response = await axioPrivate.post(`/groups/respondToInvite`, body, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    return response.status;
+  } catch (err) {
+    throw new Error(err.response.data.error.message);
+  }
+}

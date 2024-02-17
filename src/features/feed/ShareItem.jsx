@@ -1,5 +1,8 @@
 import { ExternalLinkIcon, DeleteIcon } from '@chakra-ui/icons';
-import { Box, Flex, Text, Image, Link } from '@chakra-ui/react';
+import { Box, Flex, Icon, Text, Image, Link } from '@chakra-ui/react';
+import { GiAudioCassette } from 'react-icons/gi';
+import { PiVinylRecordFill } from 'react-icons/pi';
+import { MdOutlineQueueMusic, MdLibraryMusic } from 'react-icons/md';
 
 import { useAuth } from '../../hooks/useAuth';
 import { useDeleteShare } from '../../hooks/useDeleteShare';
@@ -55,7 +58,74 @@ function ShareItem({ share }) {
     >
       <Flex flexDir="row" alignItems="center" gap="3" minHeight="20">
         <Flex minWidth="16" justifyContent="center">
-          {type.toUpperCase()}
+          {type.toLowerCase() === 'mix' && (
+            <Flex position="relative">
+              <Icon as={GiAudioCassette} color="brandOrange.400" boxSize={12} />
+              <Text
+                color="brandGray.500"
+                position="absolute"
+                right="-2"
+                bottom="-2"
+                fontSize="10"
+                fontWeight="700"
+              >
+                Mix
+              </Text>
+            </Flex>
+          )}
+          {type.toLowerCase() === 'ep' && (
+            <Flex position="relative">
+              <Icon as={MdLibraryMusic} color="brandOrange.400" boxSize={12} />
+              <Text
+                color="brandGray.500"
+                position="absolute"
+                right="-2"
+                bottom="-2"
+                fontSize="10"
+                fontWeight="700"
+              >
+                EP
+              </Text>
+            </Flex>
+          )}
+          {type.toLowerCase() === 'album' && (
+            <Flex position="relative">
+              <Icon
+                as={PiVinylRecordFill}
+                color="brandOrange.400"
+                boxSize={12}
+              />
+              <Text
+                color="brandGray.500"
+                position="absolute"
+                right="-2"
+                bottom="-2"
+                fontSize="10"
+                fontWeight="700"
+              >
+                Album
+              </Text>
+            </Flex>
+          )}
+          {type.toLowerCase() === 'song' && (
+            <Flex position="relative">
+              <Icon
+                as={MdOutlineQueueMusic}
+                color="brandOrange.400"
+                boxSize={12}
+              />
+              <Text
+                color="brandGray.500"
+                position="absolute"
+                right="-2"
+                bottom="-2"
+                fontSize="10"
+                fontWeight="700"
+              >
+                Song
+              </Text>
+            </Flex>
+          )}
         </Flex>
         <Flex
           flexDir="column"

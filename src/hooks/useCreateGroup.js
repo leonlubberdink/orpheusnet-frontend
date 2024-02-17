@@ -8,10 +8,8 @@ export function useCreateGroup() {
 
   const { mutate: createGroup, status } = useMutation({
     mutationFn: (formData) => createGroupApi(formData),
-    onSuccess: (response, formData) => {
-      queryClient.invalidateQueries(['groups', formData.userId]);
+    onSuccess: () => {
       queryClient.invalidateQueries('groups');
-
       toast('Group created!');
     },
     onError: (err) => {
