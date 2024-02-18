@@ -3,6 +3,8 @@ import axios, { axioPrivate, setHeaderToken } from './axios';
 const SIGNUP_URL = '/users/signup';
 const LOGIN_URL = '/users/login';
 const LOGOUT_URL = '/users/logout';
+const FORGOT_PASSWORD_URL = '/users/forgotPassword';
+const RESET_PASSWORD_URL = '/users/resetPassword';
 
 export async function signup(formData) {
   const {
@@ -86,5 +88,39 @@ export async function refreshAuth(failedRequest) {
     return Promise.resolve(data.accessToken);
   } else {
     throw new Error(data.message);
+  }
+}
+
+export async function forgotPassword(formData) {
+  const { email } = formData;
+
+  const res = await axios.post(
+    FORGOT_PASSWORD_URL,
+    JSON.stringify({
+      email,
+    }),
+    {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    }
+  );
+
+  return res;
+}
+
+export async function resetPassword(formData, resetToken) {
+  try {
+    const res = await axios.patch(
+      `${RESET_PASSWORD_URL}/${resetToken}`,
+      JSON.stringify(formData),
+      {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      }
+    );
+
+    return res;
+  } catch (error) {
+    throw new Error(error.response.data.message);
   }
 }

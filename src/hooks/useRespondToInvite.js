@@ -15,7 +15,6 @@ export function useRespondToInvite() {
     },
 
     onSuccess: () => {
-      console.log(auth);
       queryClient.invalidateQueries();
       toast('Success!');
     },

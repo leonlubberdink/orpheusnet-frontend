@@ -47,8 +47,6 @@ function NavAuth({ user }) {
     respondToInvite({ hasAcceptedInvite, userId: auth?.user?._id, groupId });
   }
 
-  console.log(invites);
-
   return (
     <Flex as="nav" gap="8" alignItems="center">
       <Image

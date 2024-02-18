@@ -61,31 +61,11 @@ function ShareItem({ share }) {
           {type.toLowerCase() === 'mix' && (
             <Flex position="relative">
               <Icon as={GiAudioCassette} color="brandOrange.400" boxSize={12} />
-              <Text
-                color="brandGray.500"
-                position="absolute"
-                right="-2"
-                bottom="-2"
-                fontSize="10"
-                fontWeight="700"
-              >
-                Mix
-              </Text>
             </Flex>
           )}
           {type.toLowerCase() === 'ep' && (
             <Flex position="relative">
               <Icon as={MdLibraryMusic} color="brandOrange.400" boxSize={12} />
-              <Text
-                color="brandGray.500"
-                position="absolute"
-                right="-2"
-                bottom="-2"
-                fontSize="10"
-                fontWeight="700"
-              >
-                EP
-              </Text>
             </Flex>
           )}
           {type.toLowerCase() === 'album' && (
@@ -95,16 +75,6 @@ function ShareItem({ share }) {
                 color="brandOrange.400"
                 boxSize={12}
               />
-              <Text
-                color="brandGray.500"
-                position="absolute"
-                right="-2"
-                bottom="-2"
-                fontSize="10"
-                fontWeight="700"
-              >
-                Album
-              </Text>
             </Flex>
           )}
           {type.toLowerCase() === 'song' && (
@@ -114,16 +84,6 @@ function ShareItem({ share }) {
                 color="brandOrange.400"
                 boxSize={12}
               />
-              <Text
-                color="brandGray.500"
-                position="absolute"
-                right="-2"
-                bottom="-2"
-                fontSize="10"
-                fontWeight="700"
-              >
-                Song
-              </Text>
             </Flex>
           )}
         </Flex>

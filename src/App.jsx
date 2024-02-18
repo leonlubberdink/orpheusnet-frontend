@@ -11,6 +11,7 @@ import UserSettings from './features/user/UserSettings';
 import RequireAuth from './components/RequireAuth';
 import Confirm from './pages/Confirm';
 import IsConfirmed from './pages/IsConfirmed';
+import PassWordReset from './pages/PassWordReset';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/signup/:groupId" element={<Signup />} />
       <Route path="/isconfirmed" element={<IsConfirmed />} />
+      <Route path="/pwreset/:resetToken" element={<PassWordReset />} />
 
       {/* Protected Routes */}
       <Route element={<RequireAuth />}>

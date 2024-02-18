@@ -22,7 +22,14 @@ function AppLayout() {
   );
 
   return (
-    <Flex as="main" flexDir="column" minHeight="100vh" width="100vw">
+    <Flex
+      as="main"
+      flexDir="column"
+      minHeight="100vh"
+      maxHeight="100vh"
+      width="100vw"
+      overflow="hidden"
+    >
       <Header />
       <Outlet />
     </Flex>

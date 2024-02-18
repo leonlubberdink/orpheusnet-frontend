@@ -22,7 +22,7 @@ function SearchShareComponent() {
   }
 
   return (
-    <Flex flexGrow="1" pl="10" pr="10" mt="4">
+    <Flex flexGrow="1" pl="10" pr="10" mt="4" height="170px">
       <Tabs
         isFitted
         variant="enclosed-colored"

@@ -8,11 +8,23 @@ import { useSearchContext } from '../../context/SearchContext';
 import ShareItem from './ShareItem';
 import EmptyFeed from '../../components/EmptyFeed';
 
+const scrollBarStyle = {
+  '&::-webkit-scrollbar': { width: '4px' },
+  '&::-webkit-scrollbar-track': { width: '6px' },
+  '&::-webkit-scrollbar-thumb': {
+    background: 'brandGray.400',
+    borderRadius: '24px',
+  },
+  height: 'calc(100vh - 290px)',
+};
+
 function Shares() {
   const { selectedGroupId } = useGroupContext();
   const { searchValue } = useSearchContext();
   const { isLoading, data } = useShares(selectedGroupId);
   const [searchParams] = useSearchParams();
+
+  const sidebarStyle = isLoading ? {} : scrollBarStyle;
 
   const filteredShares = useMemo(() => {
     if (!Array.isArray(data)) return [];
@@ -50,7 +62,7 @@ function Shares() {
   }, [data, searchValue, searchParams]);
 
   return (
-    <VStack ml="10" mr="10">
+    <VStack ml="10" mr="10" overflowY="auto" sx={sidebarStyle}>
       {isLoading && <Spinner size="xl" color="brandOrange.500" />}
       {!selectedGroupId && <EmptyFeed></EmptyFeed>}
       {selectedGroupId &&
