@@ -1,13 +1,16 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
 import { updateMe as updateMeApi } from '../services/userApi';
 
 export function useSettings() {
+  const queryClient = useQueryClient();
+
   const { mutate: updateMe, status } = useMutation({
-    mutationFn: async (formData) => await updateMeApi(formData),
+    mutationFn: async (newUserInfo) => await updateMeApi(newUserInfo),
 
     onSuccess: () => {
+      queryClient.invalidateQueries(['me']);
       toast('Saved your settings!');
     },
 

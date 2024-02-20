@@ -1,6 +1,6 @@
 import { Box, Divider, Flex, Image, Spacer } from '@chakra-ui/react';
 
-import Navigation from '../pages/Navigation';
+import Navigation from './Navigation';
 import { useAuth } from '../hooks/useAuth';
 
 function Header() {
