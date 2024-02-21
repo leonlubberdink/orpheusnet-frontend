@@ -59,14 +59,11 @@ function UserSettings() {
   }
 
   function handleUpdateImage(e) {
-    console.log('handlexxxxx');
     e.preventDefault();
-    console.log(fileInputRef.current);
     fileInputRef.current.click();
   }
 
   function handleUploadImage(e) {
-    console.log('handle');
     const imgFile = e.target.files[0];
     if (!imgFile) return;
 
@@ -92,7 +89,6 @@ function UserSettings() {
       },
       {
         onSettled: () => {
-          console.log('settled');
           setUserInfo((prevState) => ({
             ...prevState,
             passwordCurrent: '',
