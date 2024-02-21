@@ -4,11 +4,7 @@ import NavAuth from './NavAuth';
 
 function Navigation() {
   const { auth } = useAuth();
-  return auth?.user && auth?.user?.emailVerified ? (
-    <NavAuth user={auth.user} />
-  ) : (
-    <NavNonAuth />
-  );
+  return auth?.user && auth?.user?.emailVerified ? <NavAuth /> : <NavNonAuth />;
 }
 
 export default Navigation;

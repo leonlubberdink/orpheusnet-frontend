@@ -75,6 +75,8 @@ export async function getInvites(userId) {
   }
 }
 
+//UserId hoeft niet mee? Word al meegestuurd mit token
+
 export async function respondToInvite({ hasAcceptedInvite, userId, groupId }) {
   const body = { hasAcceptedInvite, userId, groupId };
   try {

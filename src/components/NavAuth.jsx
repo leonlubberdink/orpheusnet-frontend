@@ -24,6 +24,8 @@ import { useRespondToInvite } from '../hooks/useRespondToInvite';
 import { useAuth } from '../hooks/useAuth';
 import { useInvites } from '../hooks/useInvites';
 
+import { useUserContext } from '../context/UserContext';
+
 const baseUrl =
   import.meta.env.VITE_NODE_ENV === 'development'
     ? import.meta.env.VITE_ORPHEUS_API_URL_DEV
@@ -31,13 +33,14 @@ const baseUrl =
 
 const imgUrl = `${baseUrl}/user-img`;
 
-function NavAuth({ user }) {
+function NavAuth() {
   const { auth } = useAuth();
   const { signout } = useSignout();
   const { data: invites, isLoading: isLoadingInvites } = useInvites(
     auth?.user?._id
   );
   const { respondToInvite } = useRespondToInvite();
+  const { userInfo } = useUserContext();
 
   function handleLogout() {
     signout();
@@ -52,12 +55,12 @@ function NavAuth({ user }) {
       <Image
         borderRadius="full"
         boxSize="12"
-        src={`${imgUrl}/${user.userImage}`}
+        src={`${imgUrl}/${userInfo.userImage}`}
         alt="Your user image"
         boxShadow="base"
       />
       <Text fontSize="28" fontWeight="400" color="brandGray.800">
-        {user.userName}
+        {userInfo.userName}
       </Text>
       {invites?.length > 0 && (
         <Box position="relative">

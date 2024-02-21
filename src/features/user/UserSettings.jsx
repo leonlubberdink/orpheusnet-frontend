@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Center,
@@ -8,16 +8,18 @@ import {
   Input,
   Heading,
   VStack,
-  Spinner,
   Button,
   Image,
   Icon,
 } from '@chakra-ui/react';
 import { MdOutlineUploadFile } from 'react-icons/md';
 
-import { useGetMe } from '../../hooks/useGetMe';
 import { usePassword } from '../../hooks/usePassword';
 import { useSettings } from '../../hooks/useSettings';
+import { useImage } from '../../hooks/useImage';
+
+import { useGroupContext } from '../../context/GroupContext';
+import { useUserContext } from '../../context/UserContext';
 
 const baseUrl =
   import.meta.env.VITE_NODE_ENV === 'development'
@@ -27,36 +29,15 @@ const baseUrl =
 const imgUrl = `${baseUrl}/user-img`;
 
 function UserSettings() {
-  const { data, isLoading: isLoadingData } = useGetMe();
+  const { selectedGroupId } = useGroupContext();
   const { updateMe, isLoading: isUpdatingData } = useSettings();
   const { updatePassword, isLoading: isUpdatingPassword } = usePassword();
+  const { updateImage, isLoading: isUploadingImage } = useImage();
+
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
-  const [userInfo, setUserInfo] = useState({
-    userName: data?.data.data.doc.userName || '',
-    email: data?.data.data.doc.email || '',
-    passwordCurrent: '',
-    password: '',
-    passwordConfirm: '',
-    userImage: '',
-  });
-
-  useEffect(
-    function () {
-      // Check if `data` exists before trying to update `userInfo`
-      if (data?.data.data.doc) {
-        setUserInfo({
-          userName: data.data.data.doc.userName || '',
-          email: data.data.data.doc.email || '',
-          userImage: data.data.data.doc.userImage || '',
-          password: '',
-          passwordConfirm: '',
-        });
-      }
-    },
-    [data]
-  );
+  const { userInfo, setUserInfo } = useUserContext();
 
   function handleStateChange(e) {
     const { name, value } = e.target;
@@ -65,6 +46,32 @@ function UserSettings() {
       ...prevState,
       [name]: value,
     }));
+  }
+
+  function handleBackToFeed() {
+    navigate(`/app/feed/${selectedGroupId}`);
+  }
+
+  function handleUpdateMail(e) {
+    e.preventDefault();
+    if (userInfo.email === '') return;
+    updateMe({ email: userInfo.email });
+  }
+
+  function handleUpdateImage(e) {
+    console.log('handlexxxxx');
+    e.preventDefault();
+    console.log(fileInputRef.current);
+    fileInputRef.current.click();
+  }
+
+  function handleUploadImage(e) {
+    console.log('handle');
+    const imgFile = e.target.files[0];
+    if (!imgFile) return;
+
+    updateImage(imgFile);
+    e.target.value = '';
   }
 
   function handleUpdatePassword(e) {
@@ -77,17 +84,24 @@ function UserSettings() {
     )
       return;
 
-    updatePassword({
-      passwordCurrent: userInfo.passwordCurrent,
-      password: userInfo.password,
-      passwordConfirm: userInfo.passwordConfirm,
-    });
-  }
-
-  function handleUpdateMail(e) {
-    e.preventDefault();
-    if (userInfo.email === '') return;
-    updateMe({ email: userInfo.email });
+    updatePassword(
+      {
+        passwordCurrent: userInfo.passwordCurrent,
+        password: userInfo.password,
+        passwordConfirm: userInfo.passwordConfirm,
+      },
+      {
+        onSettled: () => {
+          console.log('settled');
+          setUserInfo((prevState) => ({
+            ...prevState,
+            passwordCurrent: '',
+            password: '',
+            passwordConfirm: '',
+          }));
+        },
+      }
+    );
   }
 
   return (
@@ -101,168 +115,179 @@ function UserSettings() {
         height="2000"
         shadow="base"
       >
-        <Button colorScheme="brandGray" variant="solid" mr="auto" mb="5">
+        <Button
+          colorScheme="brandGray"
+          variant="solid"
+          mr="auto"
+          mb="5"
+          onClick={handleBackToFeed}
+        >
           &#8592; Back to feed
         </Button>
         <Heading as="h3" mt="5" mb="4" size="md">
           Account info:
         </Heading>
 
-        {isLoadingData ? (
-          <Spinner size="xl" color="brandOrange.500" />
-        ) : (
-          <Flex flexDir="row" gap="20">
-            <FormControl>
-              <VStack alignItems="flex-start" width="400px">
-                <Flex flexDir="row" alignItems="center">
+        <Flex flexDir="row" gap="20">
+          <FormControl>
+            <VStack alignItems="flex-start" width="400px">
+              <Flex flexDir="row" alignItems="center">
+                <FormLabel
+                  htmlFor="userName"
+                  mt="1"
+                  width="56"
+                  sx={{ whiteSpace: 'nowrap' }}
+                >
+                  Username:
+                </FormLabel>
+                <Input
+                  focusBorderColor="brandOrange.300"
+                  id="userName"
+                  shadow="sm"
+                  type="text"
+                  size="sm"
+                  defaultValue={userInfo?.userName || ''}
+                  onChange={handleStateChange}
+                  disabled
+                />
+              </Flex>
+              <Flex flexDir="row" alignItems="center">
+                <FormLabel
+                  mt="1"
+                  width="56"
+                  sx={{ whiteSpace: 'nowrap' }}
+                  htmlFor="email"
+                >
+                  E-mail address:
+                </FormLabel>
+                <Input
+                  focusBorderColor="brandOrange.300"
+                  name="email"
+                  id="email"
+                  shadow="sm"
+                  type="email"
+                  size="sm"
+                  value={userInfo?.email || ''}
+                  onChange={handleStateChange}
+                  isDisabled={isUpdatingData}
+                />
+              </Flex>
+              <Button
+                colorScheme="brand"
+                variant="solid"
+                mt="2"
+                onClick={handleUpdateMail}
+                isDisabled={isUpdatingPassword}
+              >
+                Save
+              </Button>
+              <Flex flexDir="column" mt="6">
+                <Heading as="h3" mt="5" mb="6" size="md">
+                  Change your password:
+                </Heading>
+                <Flex flexDir="row">
                   <FormLabel
-                    htmlFor="userName"
+                    htmlFor="pwCur"
                     mt="1"
                     width="56"
                     sx={{ whiteSpace: 'nowrap' }}
                   >
-                    Username:
+                    Current password:
                   </FormLabel>
                   <Input
                     focusBorderColor="brandOrange.300"
-                    id="userName"
+                    name="passwordCurrent"
+                    id="pwCur"
                     shadow="sm"
-                    type="text"
+                    type="password"
                     size="sm"
-                    defaultValue={userInfo?.userName}
+                    isDisabled={isUpdatingPassword}
+                    value={userInfo.passwordCurrent || ''}
                     onChange={handleStateChange}
-                    disabled
                   />
                 </Flex>
-                <Flex flexDir="row" alignItems="center">
+                <Flex flexDir="row">
                   <FormLabel
+                    htmlFor="pw"
                     mt="1"
                     width="56"
                     sx={{ whiteSpace: 'nowrap' }}
-                    htmlFor="email"
                   >
-                    E-mail address:
+                    New password:
                   </FormLabel>
                   <Input
                     focusBorderColor="brandOrange.300"
-                    name="email"
-                    id="email"
+                    name="password"
+                    id="pw"
                     shadow="sm"
-                    type="email"
+                    type="password"
                     size="sm"
-                    value={userInfo?.email}
+                    isDisabled={isUpdatingPassword}
+                    value={userInfo.password || ''}
                     onChange={handleStateChange}
-                    isDisabled={isUpdatingData}
                   />
                 </Flex>
-                <Button
-                  colorScheme="brand"
-                  variant="solid"
-                  mt="2"
-                  onClick={handleUpdateMail}
-                  isDisabled={isUpdatingPassword}
-                >
-                  Save
-                </Button>
-                <Flex flexDir="column" mt="6">
-                  <Heading as="h3" mt="5" mb="6" size="md">
-                    Change your password:
-                  </Heading>
-                  <Flex flexDir="row">
-                    <FormLabel
-                      htmlFor="pwCur"
-                      mt="1"
-                      width="56"
-                      sx={{ whiteSpace: 'nowrap' }}
-                    >
-                      Current password:
-                    </FormLabel>
-                    <Input
-                      focusBorderColor="brandOrange.300"
-                      name="passwordCurrent"
-                      id="pwCur"
-                      shadow="sm"
-                      type="password"
-                      size="sm"
-                      onChange={handleStateChange}
-                    />
-                  </Flex>
-                  <Flex flexDir="row">
-                    <FormLabel
-                      htmlFor="pw"
-                      mt="1"
-                      width="56"
-                      sx={{ whiteSpace: 'nowrap' }}
-                    >
-                      New password:
-                    </FormLabel>
-                    <Input
-                      focusBorderColor="brandOrange.300"
-                      name="password"
-                      id="pw"
-                      shadow="sm"
-                      type="password"
-                      size="sm"
-                      onChange={handleStateChange}
-                    />
-                  </Flex>
-                  <Flex flexDir="row">
-                    <FormLabel
-                      htmlFor="pwConfirm"
-                      mt="1"
-                      width="56"
-                      sx={{ whiteSpace: 'nowrap' }}
-                    >
-                      Password confirm:
-                    </FormLabel>
-                    <Input
-                      focusBorderColor="brandOrange.300"
-                      name="passwordConfirm"
-                      id="pwConfirm"
-                      shadow="sm"
-                      type="password"
-                      size="sm"
-                      onChange={handleStateChange}
-                    />
-                  </Flex>
-                </Flex>
-                <Button
-                  colorScheme="brand"
-                  variant="solid"
-                  mt="2"
-                  isDisabled={isUpdatingPassword}
-                  onClick={handleUpdatePassword}
-                >
-                  Save
-                </Button>
-              </VStack>
-            </FormControl>
-
-            {isLoadingData ? (
-              <Spinner size="xl" />
-            ) : (
-              <Flex alignSelf="flex-start" flexDir="row">
-                <Flex flexDir="column" gap="2" alignItems="center">
-                  <Image
-                    borderRadius="full"
-                    boxSize="100"
-                    src={`${imgUrl}/${userInfo?.userImage || 'default.jpg'}`}
-                    alt="Your user image"
-                    boxShadow="base"
-                  />
-                  <Button
-                    size="xs"
-                    leftIcon={<Icon as={MdOutlineUploadFile} />}
-                    colorScheme="brandGray"
-                    onClick={() => fileInputRef.current.click()}
+                <Flex flexDir="row">
+                  <FormLabel
+                    htmlFor="pwConfirm"
+                    mt="1"
+                    width="56"
+                    sx={{ whiteSpace: 'nowrap' }}
                   >
-                    Change Image
-                  </Button>
+                    Password confirm:
+                  </FormLabel>
+                  <Input
+                    focusBorderColor="brandOrange.300"
+                    name="passwordConfirm"
+                    id="pwConfirm"
+                    shadow="sm"
+                    type="password"
+                    size="sm"
+                    isDisabled={isUpdatingPassword}
+                    value={userInfo.passwordConfirm || ''}
+                    onChange={handleStateChange}
+                  />
                 </Flex>
               </Flex>
-            )}
+              <Button
+                colorScheme="brand"
+                variant="solid"
+                mt="2"
+                isDisabled={isUpdatingPassword}
+                onClick={handleUpdatePassword}
+              >
+                Save
+              </Button>
+            </VStack>
+          </FormControl>
+          <Flex alignSelf="flex-start" flexDir="row">
+            <Flex flexDir="column" gap="2" alignItems="center">
+              <Image
+                borderRadius="full"
+                boxSize="100"
+                src={`${imgUrl}/${userInfo?.userImage || 'default.jpg'}`}
+                alt="Your user image"
+                boxShadow="base"
+              />
+              <Button
+                size="xs"
+                leftIcon={<Icon as={MdOutlineUploadFile} />}
+                colorScheme="brandGray"
+                onClick={handleUpdateImage}
+                isDisabled={isUploadingImage}
+              >
+                Change Image
+              </Button>
+              <Input
+                type="file"
+                hidden
+                ref={fileInputRef}
+                accept="image/*"
+                onChange={handleUploadImage}
+              />
+            </Flex>
           </Flex>
-        )}
+        </Flex>
       </VStack>
     </Center>
   );

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { getMe } from '../services/userApi';
+import { getMe } from '../services/apiUser';
 
 export function useGetMe() {
   const { isLoading, data, isError, error } = useQuery({

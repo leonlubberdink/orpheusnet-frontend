@@ -1,18 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
-import { updatePassword as updatePasswordApi } from '../services/apiUser';
+import { updateImage as updateImageApi } from '../services/apiUser';
 
-export function usePassword() {
+export function useImage() {
   const queryClient = useQueryClient();
 
-  const { mutate: updatePassword, status } = useMutation({
-    mutationFn: async (changedPassword) =>
-      await updatePasswordApi(changedPassword),
+  const { mutate: updateImage, status } = useMutation({
+    mutationFn: async (image) => await updateImageApi(image),
 
     onSuccess: () => {
       queryClient.invalidateQueries(['me']);
-      toast('Saved your password!');
+      toast('Image updated!');
     },
 
     onError: (err) => {
@@ -22,5 +21,5 @@ export function usePassword() {
 
   const isLoading = status === 'pending';
 
-  return { updatePassword, isLoading };
+  return { updateImage, isLoading };
 }
