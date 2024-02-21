@@ -7,7 +7,7 @@ import useAuth from '../hooks/useAuth';
 
 function PersistLogin() {
   const [isLoading, setIsLoading] = useState(true);
-  const { auth } = useAuth();
+  const { auth, persist } = useAuth();
   const refresh = useRefreshToken();
 
   useEffect(function () {
@@ -26,7 +26,13 @@ function PersistLogin() {
 
   return (
     <>
-      {isLoading ? <Spinner size="xl" color="brandOrange.500" /> : <Outlet />}
+      {!persist ? (
+        <Outlet />
+      ) : isLoading ? (
+        <Spinner size="xl" color="brandOrange.500" />
+      ) : (
+        <Outlet />
+      )}
     </>
   );
 }

@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Center,
+  Checkbox,
   Image,
   Heading,
   VStack,
@@ -28,7 +29,7 @@ function Login() {
   const userRef = useRef();
 
   const { login, isLoading } = useLogin();
-  const { auth } = useAuth();
+  const { auth, persist, setPersist } = useAuth();
 
   const [userName, setUserName] = useState('user1');
   const [password, setPassword] = useState('Test1234');
@@ -41,6 +42,17 @@ function Login() {
     },
     [auth, navigate]
   );
+
+  useEffect(
+    function () {
+      localStorage.setItem('persist', persist);
+    },
+    [persist]
+  );
+
+  function togglePersist() {
+    setPersist((prev) => !prev);
+  }
 
   function handleLogin(e) {
     e.preventDefault();
@@ -162,6 +174,17 @@ function Login() {
                     >
                       Login
                     </Button>
+                    <Checkbox
+                      colorScheme="brandOrange"
+                      size="sm"
+                      mt="-3"
+                      onChange={togglePersist}
+                      isChecked={persist}
+                    >
+                      <Text as="span" fontSize="12">
+                        Remember me
+                      </Text>
+                    </Checkbox>
                   </Stack>
                 </form>
               </CardBody>

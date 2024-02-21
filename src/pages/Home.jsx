@@ -13,7 +13,8 @@ function Home() {
 
   useEffect(
     function () {
-      user?.emailVerified && navigate(`/app/feed/${user.groups[0]}`);
+      user?.emailVerified &&
+        navigate(`/app/feed/${user.groups[0]}`, { replace: true });
     },
     [user, navigate]
   );
