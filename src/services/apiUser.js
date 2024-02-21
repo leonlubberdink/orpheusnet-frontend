@@ -23,8 +23,6 @@ export async function updateMe(newUserInfo) {
       }
     );
 
-    console.log();
-
     return res;
   } catch (err) {
     throw new Error(err.message);
@@ -48,20 +46,16 @@ export async function updatePassword(updatedPassword) {
 }
 
 export async function updateImage(image) {
-  console.log(image);
-
   const formDataObj = new FormData();
 
   formDataObj.append('userImage', image, image.name);
 
   try {
-    console.log('try');
     const res = await axioPrivate.patch(`/users/updateMyImage`, formDataObj, {
       withCredentials: true,
     });
     return res;
   } catch (err) {
-    console.log('catch');
     throw new Error(err.message);
   }
 }
