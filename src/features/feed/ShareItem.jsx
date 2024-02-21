@@ -4,7 +4,7 @@ import { GiAudioCassette } from 'react-icons/gi';
 import { PiVinylRecordFill } from 'react-icons/pi';
 import { MdOutlineQueueMusic, MdLibraryMusic } from 'react-icons/md';
 
-import { useAuth } from '../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth';
 import { useDeleteShare } from '../../hooks/useDeleteShare';
 
 const baseUrl =

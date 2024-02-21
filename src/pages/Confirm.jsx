@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Box, Center, Image, Heading, VStack, Stack } from '@chakra-ui/react';
 
-import { useAuth } from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 
 function Confirm() {
   const navigate = useNavigate();

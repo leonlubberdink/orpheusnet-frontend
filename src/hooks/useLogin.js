@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { setHeaderToken } from '../services/axios';
 import { login as loginApi } from '../services/apiAuth';
 import { useGroupContext } from '../context/GroupContext';
-import { useAuth } from './useAuth';
+import useAuth from './useAuth';
 
 export function useLogin() {
   const { setSelectedGroupId, setSelectedGroupName } = useGroupContext();

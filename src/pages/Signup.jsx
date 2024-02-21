@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react';
 
 import { useSignup } from '../hooks/useSignup';
-import { useAuth } from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 
 function Signup() {
   const navigate = useNavigate();

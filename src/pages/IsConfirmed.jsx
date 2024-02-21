@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 
-import { useAuth } from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 
 function IsConfirmed() {
   const navigate = useNavigate();

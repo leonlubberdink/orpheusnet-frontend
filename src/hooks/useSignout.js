@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { logout as signoutApi } from '../services/apiAuth';
-import { useAuth } from '../hooks/useAuth';
+import useAuth from './useAuth';
 import { useGroupContext } from '../context/GroupContext';
 
 export function useSignout() {

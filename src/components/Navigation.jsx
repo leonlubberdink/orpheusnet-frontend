@@ -1,4 +1,4 @@
-import { useAuth } from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 import NavNonAuth from './NavNonAuth';
 import NavAuth from './NavAuth';
 

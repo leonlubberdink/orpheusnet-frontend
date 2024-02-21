@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 
 import { useLogin } from '../hooks/useLogin';
-import { useAuth } from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 import ForgotPasswordModal from '../components/ForgotPasswordModal';
 
 function Login() {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import { signup as signupApi } from '../services/apiAuth';
-import { useAuth } from '../hooks/useAuth';
+import useAuth from './useAuth';
 
 export function useSignup() {
   const { setAuth } = useAuth();

@@ -1,7 +1,7 @@
 import { Box, Divider, Flex, Image, Spacer } from '@chakra-ui/react';
 
 import Navigation from './Navigation';
-import { useAuth } from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 
 function Header() {
   const { auth } = useAuth();

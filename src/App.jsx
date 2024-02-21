@@ -9,6 +9,7 @@ import PageNotFound from './pages/PageNotFound';
 import Feed from './features/feed/Feed';
 import UserSettings from './features/user/UserSettings';
 import RequireAuth from './components/RequireAuth';
+import PersistLogin from './components/PersistLogin';
 import Confirm from './pages/Confirm';
 import IsConfirmed from './pages/IsConfirmed';
 import PassWordReset from './pages/PassWordReset';
@@ -26,13 +27,15 @@ function App() {
       <Route path="/pwreset/:resetToken" element={<PassWordReset />} />
 
       {/* Protected Routes */}
-      <Route element={<RequireAuth />}>
-        <Route path="/confirm" element={<Confirm />} />
-        <Route path="/app" element={<AppLayout />}>
-          <Route index element={<Navigate replace to="feed" />} />
-          <Route path="feed" element={<Feed />} />
-          <Route path="feed/:groupId" element={<Feed />} />
-          <Route path="user" element={<UserSettings />} />
+      <Route element={<PersistLogin />}>
+        <Route element={<RequireAuth />}>
+          <Route path="/confirm" element={<Confirm />} />
+          <Route path="/app" element={<AppLayout />}>
+            <Route index element={<Navigate replace to="feed" />} />
+            <Route path="feed" element={<Feed />} />
+            <Route path="feed/:groupId" element={<Feed />} />
+            <Route path="user" element={<UserSettings />} />
+          </Route>
         </Route>
       </Route>
 

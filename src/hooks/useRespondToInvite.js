@@ -2,12 +2,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
 import { respondToInvite as respondToInviteApi } from '../services/apiGroups';
-import { useAuth } from './useAuth';
 
 export function useRespondToInvite() {
   const queryClient = useQueryClient();
-
-  const { auth } = useAuth();
 
   const { mutate: respondToInvite, status } = useMutation({
     mutationFn: async (data) => {

@@ -1,12 +1,14 @@
-import { Outlet } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Flex } from '@chakra-ui/react';
 
 import Header from '../components/Header';
-import { useAuth } from '../hooks/useAuth';
-import { useEffect } from 'react';
+import useAuth from '../hooks/useAuth';
+import { useGroupContext } from '../context/GroupContext';
 
 function AppLayout() {
+  const { groupId = '' } = useParams();
+  const { setSelectedGroupId } = useGroupContext();
   const navigate = useNavigate();
   const {
     auth: {
@@ -19,6 +21,13 @@ function AppLayout() {
       !emailVerified && navigate('/confirm');
     },
     [emailVerified, navigate]
+  );
+
+  useEffect(
+    function () {
+      setSelectedGroupId(groupId);
+    },
+    [setSelectedGroupId, groupId]
   );
 
   return (

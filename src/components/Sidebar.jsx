@@ -11,7 +11,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 
-import { useAuth } from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 import { useGroups } from '../hooks/useGroups';
 import { useGroup } from '../hooks/useGroup';
 import { useGroupContext } from '../context/GroupContext';

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Flex } from '@chakra-ui/react';
 
 import Header from '../components/Header';
-import { useAuth } from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 
 function Home() {
   const navigate = useNavigate();

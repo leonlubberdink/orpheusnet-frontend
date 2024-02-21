@@ -21,7 +21,7 @@ import { ImCross, ImCheckmark } from 'react-icons/im';
 
 import { useSignout } from '../hooks/useSignout';
 import { useRespondToInvite } from '../hooks/useRespondToInvite';
-import { useAuth } from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 import { useInvites } from '../hooks/useInvites';
 
 import { useUserContext } from '../context/UserContext';

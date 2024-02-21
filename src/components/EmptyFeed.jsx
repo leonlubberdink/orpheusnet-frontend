@@ -1,5 +1,5 @@
 import { VStack, Stack, Text, Heading } from '@chakra-ui/react';
-import { useAuth } from '../hooks/useAuth';
+import useAuth from '../hooks/useAuth';
 
 function EmptyFeed() {
   const {
