@@ -31,8 +31,8 @@ function Login() {
   const { login, isLoading } = useLogin();
   const { auth, persist, setPersist } = useAuth();
 
-  const [userName, setUserName] = useState('user1');
-  const [password, setPassword] = useState('Test1234');
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(function () {
     if (auth.user && auth.user?.emailVerified && persist)
