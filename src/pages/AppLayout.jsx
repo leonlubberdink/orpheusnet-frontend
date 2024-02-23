@@ -8,7 +8,7 @@ import { useGroupContext } from '../context/GroupContext';
 
 function AppLayout() {
   const { groupId = '' } = useParams();
-  const { selectedGroupId, setSelectedGroupId } = useGroupContext();
+  const { setSelectedGroupId } = useGroupContext();
   const navigate = useNavigate();
   const {
     auth: {

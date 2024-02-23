@@ -107,12 +107,15 @@ function UserSettings() {
   return (
     <Center width="100%">
       <VStack
-        width="1200px"
+        width="100%"
+        maxWidth="1200px"
         alignItems="center"
         backgroundColor="brandGray.10"
         p="50"
         mt="-4"
-        height="2000"
+        height="100%"
+        maxHeight="calc(100vh - 85px)"
+        overflowY="auto"
         shadow="base"
       >
         <Flex flexDir="row" gap="20">

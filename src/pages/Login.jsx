@@ -34,14 +34,12 @@ function Login() {
   const [userName, setUserName] = useState('user1');
   const [password, setPassword] = useState('Test1234');
 
-  useEffect(
-    function () {
-      if (auth.user && auth.user?.emailVerified)
-        return navigate('/app/feed', { replace: true });
-      userRef.current.focus();
-    },
-    [auth, navigate]
-  );
+  useEffect(function () {
+    if (auth.user && auth.user?.emailVerified && persist)
+      return navigate('/app/feed', { replace: true });
+    userRef.current.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(
     function () {

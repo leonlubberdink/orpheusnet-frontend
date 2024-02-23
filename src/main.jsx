@@ -11,7 +11,6 @@ import ToasterEl from './components/ToasterEl.jsx';
 import { AuthProvider } from './context/AuthProvider';
 import { GroupContextProvider } from './context/GroupContext.jsx';
 import { colors, fonts } from './styles/styles.js';
-import { UserContextProvider } from './context/UserContext.jsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,11 +31,9 @@ ReactDOM.createRoot(rootElement).render(
       <BrowserRouter>
         <GroupContextProvider>
           <AuthProvider>
-            <UserContextProvider>
-              <ChakraProvider theme={theme} resetCSS={true}>
-                <App />
-              </ChakraProvider>
-            </UserContextProvider>
+            <ChakraProvider theme={theme} resetCSS={true}>
+              <App />
+            </ChakraProvider>
           </AuthProvider>
         </GroupContextProvider>
       </BrowserRouter>

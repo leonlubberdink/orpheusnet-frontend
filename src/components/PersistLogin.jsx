@@ -11,17 +11,21 @@ function PersistLogin() {
   const refresh = useRefreshToken();
 
   useEffect(function () {
+    let isMounted = true;
+
     async function verifyRefreshToken() {
       try {
         await refresh();
       } catch (err) {
         console.error(err);
       } finally {
-        setIsLoading(false);
+        isMounted && setIsLoading(false);
       }
     }
 
     !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
+    return () => (isMounted = false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

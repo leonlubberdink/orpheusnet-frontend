@@ -1,11 +1,15 @@
+import { useLocation } from 'react-router-dom';
 import { Box, Divider, Flex, Image, Spacer } from '@chakra-ui/react';
 
 import Navigation from './Navigation';
 import useAuth from '../hooks/useAuth';
 
 function Header() {
+  const location = useLocation();
   const { auth } = useAuth();
   const invertValue = auth?.user && auth?.user?.emailVerified ? '1' : '.1';
+
+  console.log(location);
 
   return (
     <>
