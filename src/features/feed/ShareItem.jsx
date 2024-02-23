@@ -98,7 +98,11 @@ function ShareItem({ share }) {
           flexGrow="1"
         >
           <Link
-            href={`${shareUrl}?autoplay=false`}
+            href={
+              platform === 'SoundCloud'
+                ? `${shareUrl}?autoplay=false`
+                : shareUrl
+            }
             target="blank"
             _hover={{ textDecoration: 'none', color: 'brandOrange.600' }}
           >

@@ -17,8 +17,8 @@ import { MdOutlineUploadFile } from 'react-icons/md';
 import { usePassword } from '../../hooks/usePassword';
 import { useSettings } from '../../hooks/useSettings';
 import { useImage } from '../../hooks/useImage';
+import { useDeleteMe } from '../../hooks/useDeleteMe';
 
-import { useGroupContext } from '../../context/GroupContext';
 import { useUserContext } from '../../context/UserContext';
 
 const baseUrl =
@@ -29,10 +29,10 @@ const baseUrl =
 const imgUrl = `${baseUrl}/user-img`;
 
 function UserSettings() {
-  const { selectedGroupId } = useGroupContext();
   const { updateMe, isLoading: isUpdatingData } = useSettings();
   const { updatePassword, isLoading: isUpdatingPassword } = usePassword();
   const { updateImage, isLoading: isUploadingImage } = useImage();
+  const { deleteMe, isLoading: isDeleting } = useDeleteMe();
 
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ function UserSettings() {
   }
 
   function handleBackToFeed() {
-    navigate(`/app/feed/${selectedGroupId}`);
+    navigate(-1);
   }
 
   function handleUpdateMail(e) {
@@ -100,33 +100,36 @@ function UserSettings() {
     );
   }
 
+  function handleDeleteAccount() {
+    deleteMe();
+  }
+
   return (
     <Center width="100%">
       <VStack
         width="1200px"
-        alignItems="flex-start"
+        alignItems="center"
         backgroundColor="brandGray.10"
         p="50"
         mt="-4"
         height="2000"
         shadow="base"
       >
-        <Button
-          colorScheme="brandGray"
-          variant="solid"
-          mr="auto"
-          mb="5"
-          onClick={handleBackToFeed}
-        >
-          &#8592; Back to feed
-        </Button>
-        <Heading as="h3" mt="5" mb="4" size="md">
-          Account info:
-        </Heading>
-
         <Flex flexDir="row" gap="20">
           <FormControl>
             <VStack alignItems="flex-start" width="400px">
+              <Button
+                colorScheme="brandGray"
+                variant="solid"
+                mr="auto"
+                mb="5"
+                onClick={handleBackToFeed}
+              >
+                &#8592; Back to feed
+              </Button>
+              <Heading as="h3" mt="5" mb="4" size="md">
+                Account info:
+              </Heading>
               <Flex flexDir="row" alignItems="center">
                 <FormLabel
                   htmlFor="userName"
@@ -254,9 +257,18 @@ function UserSettings() {
               >
                 Save
               </Button>
+              <Button
+                colorScheme="red"
+                variant="solid"
+                mt="12"
+                isDisabled={isDeleting}
+                onClick={handleDeleteAccount}
+              >
+                Delete my account
+              </Button>
             </VStack>
           </FormControl>
-          <Flex alignSelf="flex-start" flexDir="row">
+          <Flex alignSelf="flex-start" flexDir="row" mt="95">
             <Flex flexDir="column" gap="2" alignItems="center">
               <Image
                 borderRadius="full"

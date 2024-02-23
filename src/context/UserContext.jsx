@@ -15,7 +15,7 @@ function UserContextProvider({ children }) {
   });
 
   useEffect(() => {
-    if (data?.data.data.doc) {
+    if (data?.data?.data?.doc) {
       setUserInfo((prevState) => ({
         ...prevState,
         userName: data.data.data.doc.userName || '',

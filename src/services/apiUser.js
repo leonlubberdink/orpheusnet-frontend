@@ -4,6 +4,7 @@ export async function getMe() {
   try {
     const res = await axioPrivate.get(`/users/me`, {
       headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
     });
     return res;
   } catch (err) {
@@ -20,6 +21,7 @@ export async function updateMe(newUserInfo) {
       { email },
       {
         headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
       }
     );
 
@@ -36,6 +38,7 @@ export async function updatePassword(updatedPassword) {
       updatedPassword,
       {
         headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
       }
     );
 
@@ -54,6 +57,19 @@ export async function updateImage(image) {
     const res = await axioPrivate.patch(`/users/updateMyImage`, formDataObj, {
       withCredentials: true,
     });
+    return res;
+  } catch (err) {
+    throw new Error(err.message);
+  }
+}
+
+export async function deleteMe() {
+  try {
+    const res = await axioPrivate.delete(`/users/deleteMe`, {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    });
+
     return res;
   } catch (err) {
     throw new Error(err.message);

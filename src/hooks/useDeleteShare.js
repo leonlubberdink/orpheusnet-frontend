@@ -10,9 +10,11 @@ export function useDeleteShare() {
     mutationFn: (shareId) => {
       return deleteShareApi(shareId);
     },
-    onSuccess: (groupId) => {
-      queryClient.invalidateQueries(['shares', groupId]);
-      queryClient.invalidateQueries('groups');
+    onSuccess: async (groupId) => {
+      await queryClient.invalidateQueries(['shares', groupId]);
+      await queryClient.invalidateQueries('groups');
+    },
+    onSettled: () => {
       toast(`Music successfully deleted share!`);
     },
     onError: (err) => {
