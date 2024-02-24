@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { NavLink, useSearchParams } from 'react-router-dom';
 import {
   Box,
@@ -38,6 +38,7 @@ function Sidebar({ type = 'groups' }) {
     setSelectedGroupId,
     selectedMemberId,
     setSelectedMemberId,
+    setGroupAdmins,
     groupAdmins,
     setSelectedGroupName,
   } = useGroupContext();
@@ -62,6 +63,13 @@ function Sidebar({ type = 'groups' }) {
       return Array.isArray(group?.members) ? group.members : [];
     }
   }, [type, groups, group?.members]);
+
+  useEffect(
+    function () {
+      setGroupAdmins(group?.groupAdmins);
+    },
+    [group, setGroupAdmins]
+  );
 
   function handleSelectGroup(id) {
     setSelectedGroupName(group?.groupName);
@@ -156,7 +164,7 @@ function Sidebar({ type = 'groups' }) {
           onClick={onOpen}
           isDisabled={
             type === 'users' &&
-            (!groupAdmins.includes(userId) || !selectedGroupId)
+            (!groupAdmins?.includes(userId) || !selectedGroupId)
           }
         >
           {type === 'groups' ? 'Create community' : 'Invite user'}

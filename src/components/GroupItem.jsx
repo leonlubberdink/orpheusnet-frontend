@@ -3,7 +3,6 @@ import { HiShare } from 'react-icons/hi';
 import { MdPeople } from 'react-icons/md';
 
 import { useGroupContext } from '../context/GroupContext';
-import { useEffect } from 'react';
 
 const baseUrl =
   import.meta.env.VITE_NODE_ENV === 'development'
@@ -13,23 +12,9 @@ const baseUrl =
 const imgUrl = `${baseUrl}/group-img`;
 
 function GroupItem({ group }) {
-  const {
-    id,
-    groupName,
-    groupImage,
-    members,
-    groupAdmins,
-    shares = [],
-  } = group;
+  const { id, groupName, groupImage, members, shares = [] } = group;
 
-  const { selectedGroupId, setGroupAdmins } = useGroupContext();
-
-  useEffect(
-    function () {
-      setGroupAdmins(groupAdmins);
-    },
-    [groupAdmins, setGroupAdmins]
-  );
+  const { selectedGroupId } = useGroupContext();
 
   return (
     <Flex
