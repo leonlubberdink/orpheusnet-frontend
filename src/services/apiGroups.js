@@ -35,12 +35,12 @@ export async function getMyGroups(userId) {
 }
 
 export async function getGroup(groupId) {
+  console.log('GET GROUP');
   try {
     const groupData = await axioPrivate.get(`/groups/${groupId}`, {
       headers: { 'Content-Type': 'application/json' },
     });
-
-    const { doc: group } = groupData.data.data;
+    const { group } = groupData.data.data;
     return group;
   } catch (err) {
     throw new Error(err.message);

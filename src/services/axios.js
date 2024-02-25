@@ -10,8 +10,6 @@ const baseUrl =
 
 const API_URL = `${baseUrl}/api/${import.meta.env.VITE_ORPHEUS_API_VERSION}/`;
 
-console.log(API_URL);
-
 export default axios.create({
   baseURL: API_URL,
 });
