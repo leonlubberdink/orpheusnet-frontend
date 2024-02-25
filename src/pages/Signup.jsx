@@ -274,7 +274,7 @@ function Signup() {
           <Card bg="brandGray.50" borderColor="brandGray.500" minW="24rem">
             <CardBody>
               <HStack fontSize="sm" spacing="1" gap="2" justifyContent="center">
-                <Text>Allready have an account?</Text>
+                <Text>Already have an account?</Text>
                 <Link to="/login">
                   <Text fontWeight="500" color="brandOrange.500">
                     Login.

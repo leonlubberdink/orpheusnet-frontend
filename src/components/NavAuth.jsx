@@ -27,7 +27,7 @@ import { useInvites } from '../hooks/useInvites';
 import { useUserContext } from '../context/UserContext';
 
 const baseUrl =
-  import.meta.env.VITE_NODE_ENV === 'development'
+  import.meta.env.MODE === 'development'
     ? import.meta.env.VITE_ORPHEUS_API_URL_DEV
     : import.meta.env.VITE_ORPHEUS_API_URL_PROD;
 

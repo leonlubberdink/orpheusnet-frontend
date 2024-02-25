@@ -85,6 +85,7 @@ export async function respondToInvite({ hasAcceptedInvite, userId, groupId }) {
     });
     return response.status;
   } catch (err) {
+    console.log(err.response.data);
     throw new Error(err.response.data.error.message);
   }
 }

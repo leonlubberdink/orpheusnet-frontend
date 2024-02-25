@@ -8,7 +8,7 @@ import useAuth from '../../hooks/useAuth';
 import { useDeleteShare } from '../../hooks/useDeleteShare';
 
 const baseUrl =
-  import.meta.env.VITE_NODE_ENV === 'development'
+  import.meta.env.MODE === 'development'
     ? import.meta.env.VITE_ORPHEUS_API_URL_DEV
     : import.meta.env.VITE_ORPHEUS_API_URL_PROD;
 

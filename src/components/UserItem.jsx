@@ -5,7 +5,7 @@ import { Flex, Text, Image, Tag, Icon } from '@chakra-ui/react';
 import { useGroupContext } from '../context/GroupContext';
 
 const baseUrl =
-  import.meta.env.VITE_NODE_ENV === 'development'
+  import.meta.env.MODE === 'development'
     ? import.meta.env.VITE_ORPHEUS_API_URL_DEV
     : import.meta.env.VITE_ORPHEUS_API_URL_PROD;
 
