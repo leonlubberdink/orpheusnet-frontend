@@ -22,6 +22,7 @@ import {
 
 import { useSignup } from '../hooks/useSignup';
 import useAuth from '../hooks/useAuth';
+import LogoDesignBy from '../components/LogoDesignBy';
 
 function Signup() {
   const navigate = useNavigate();
@@ -96,6 +97,9 @@ function Signup() {
       minH="100vh"
       width="100vw"
       maxWidth="100%"
+      display="flex"
+      flexDir="column"
+      justifyContent="space-between"
     >
       <Center as="section">
         <Stack alignItems="center" spacing="8">
@@ -285,6 +289,7 @@ function Signup() {
           </Card>
         </Stack>
       </Center>
+      <LogoDesignBy />
     </Box>
   );
 }

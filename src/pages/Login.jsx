@@ -22,6 +22,7 @@ import {
 import { useLogin } from '../hooks/useLogin';
 import useAuth from '../hooks/useAuth';
 import ForgotPasswordModal from '../components/ForgotPasswordModal';
+import LogoDesignBy from '../components/LogoDesignBy';
 
 function Login() {
   const { onOpen, isOpen, onClose } = useDisclosure();
@@ -79,6 +80,9 @@ function Login() {
         minH="100vh"
         width="100vw"
         maxWidth="100%"
+        display="flex"
+        flexDir="column"
+        justifyContent="space-between"
       >
         <Center>
           <Stack alignItems="center" spacing="8">
@@ -207,6 +211,7 @@ function Login() {
             </Card>
           </Stack>
         </Center>
+        <LogoDesignBy />
       </Box>
       <ForgotPasswordModal isOpen={isOpen} onClose={onClose} />
     </>

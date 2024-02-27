@@ -115,7 +115,7 @@ function ShareItem({ share }) {
                 _hover={{ color: 'brandOrange.600' }}
               >
                 {publisher} - {shortTitle}
-                <ExternalLinkIcon boxSize="4" ml="2" mb="1px" />
+                <ExternalLinkIcon boxSize="4" ml="2" mb="6px" />
               </Text>
             </Flex>
           </Link>
