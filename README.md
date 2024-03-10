@@ -1,6 +1,6 @@
 # orpheusnet-frontend
 
-Orpheusnet is a social media platform focused on music sharing, designed to connect users through music links from SoundCloud and Spotify. It allows the creation and participation in communities of like-minded music enthusiasts, facilitating discussions and music discovery within a user-friendly environment.
+[Orpheusnet](https://orpheusnet.com/) is a social media platform focused on music sharing, designed to connect users through music links from SoundCloud and Spotify. It allows the creation and participation in communities of like-minded music enthusiasts, facilitating discussions and music discovery within a user-friendly environment.
 
 ## Technical Specifications:
 
@@ -33,3 +33,5 @@ Orpheusnet aims to streamline music sharing and discovery, building a community 
 ## Role:
 
 As the developer, I led the project from concept to launch, focusing on delivering a robust and engaging platform through strategic use of modern web technologies and best practices in web development.
+
+Logo design by [Milan van Belle](https://milanvanbelle.eu/)
