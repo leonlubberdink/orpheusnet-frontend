@@ -2,9 +2,11 @@ import { useEffect } from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { Flex } from '@chakra-ui/react';
 
-import Header from '../components/Header';
 import useAuth from '../hooks/useAuth';
 import { useGroupContext } from '../context/GroupContext';
+
+import Header from '../components/Header';
+import LogoDesignBy from '../components/LogoDesignBy';
 
 function AppLayout() {
   const { groupId = '' } = useParams();
@@ -41,6 +43,7 @@ function AppLayout() {
     >
       <Header />
       <Outlet />
+      <LogoDesignBy variant="dark" />
     </Flex>
   );
 }

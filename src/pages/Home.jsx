@@ -4,6 +4,7 @@ import { Flex } from '@chakra-ui/react';
 
 import Header from '../components/Header';
 import useAuth from '../hooks/useAuth';
+import LogoDesignBy from '../components/LogoDesignBy';
 
 function Home() {
   const navigate = useNavigate();
@@ -33,8 +34,13 @@ function Home() {
       bgRepeat="no-repeat"
       left={0}
       right={0}
+      justifyContent="space-between"
+      in
+      perent
+      Flex
     >
       <Header />
+      <LogoDesignBy />
     </Flex>
   );
 }
